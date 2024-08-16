@@ -4,6 +4,7 @@ using System;
 public class EventBus : Node
 {
 	public event Action On_Ghost_Died;
+	public event Action On_Character_Died;
 	public event Action On_Ghost_Reached_Character;
 	public event Action On_Ghost_Position_Changed;
 	public event Action On_Ghost_Spawn;
@@ -53,6 +54,22 @@ public class EventBus : Node
 	public void UnSubscribeOn_Ghost_Position_Changed(Action action)
 	{
 		On_Ghost_Position_Changed -= action;
+	}
+	
+
+
+	public void RaiseOn_Character_Died()
+	{
+		On_Character_Died?.Invoke();
+		SendMessage("character", "died");
+	}
+	public void SubscribeOn_Character_Died(Action action)
+	{
+		On_Character_Died += action;
+	}
+	public void UnSubscribOn_Character_Died(Action action)
+	{
+		On_Character_Died -= action;
 	}
 
 

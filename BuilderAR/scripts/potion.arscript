@@ -28,20 +28,20 @@ func start() -> void:
 		})
 
 func update_process(delta: float) -> void:
-	if frame_time >= 1.0 / fps:
-		global_timer += frame_time
+	#if frame_time >= 1.0 / fps:
+		#global_timer += frame_time
 #		timer_print(global_timer)
-		api('send_to_swp_app', str(global_timer))
-		api('out' , str(global_timer))
-		size_up(global_add)
-		sprite_up(add)
-		frame_time = 0
+		#api('send_to_swp_app', str(global_timer))
+		#size_up(global_add)
+		#sprite_up(add)
+		#frame_time = 0
 	frame_time += delta
 	
 func timer_print(time:float)->void:
 	label.text = str(time)
 	
 func size_up (add: int) -> void:
+	if(1==2):
 		self.width += add
 		self.height += add
 		sprite.width += add
@@ -66,6 +66,11 @@ func overlap_start(ar_element: AROverlap)->void:
 	#Границы экрана
 	if ar_element.name == "S" or ar_element.name == "N" or   ar_element.name == "W" or  ar_element.name == "E" :
 		global_add = global_add*-1
-	
+func on_message(message)->void:
+	api("out",message)
+	if(message['type']=='ghost'):
+		api("out","type is ghost")
+		if(message['arg1'] == 'position'):
+			self.left= float(message['arg2'])
 
 

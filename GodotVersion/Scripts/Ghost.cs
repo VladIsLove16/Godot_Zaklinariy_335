@@ -13,7 +13,7 @@ public partial class Ghost : Sprite3D
 	{
 		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, (speed + additionSpeed) * (float)delta));
 
-		EventBus.instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.x, 0);
+		EventBus.instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.z, 0);
 
 		ChangeSpeed(delta);
 		TargetReached();

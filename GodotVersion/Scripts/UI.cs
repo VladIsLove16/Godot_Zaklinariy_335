@@ -6,6 +6,8 @@ public partial class UI : CanvasLayer
 	[Export] private Label Score;
 	[Export] private Label HealthText;
 	[Export] private Label UDiedText;
+	private Button RestartBtn;
+
 	[Export] private Sprite LeftSwipeIcon;
 	[Export] private Sprite RightSwipeIcon;
 
@@ -19,6 +21,7 @@ public partial class UI : CanvasLayer
 		Score = GetChild<Label>(2);
 		HealthText = GetChild<Label>(3);
 		UDiedText = GetChild<Label>(4);
+		RestartBtn = GetChild<Button>(5);
 
 		GhostSpawner = GetNode<GhostSpawner>("../GhostSpawner");
 		Character = GetNode<Character>("../Character");
@@ -26,7 +29,7 @@ public partial class UI : CanvasLayer
 
 		// Подписка на события
 		Character.OnGetDamage += Character_OnGetDamage;
-		Character.OnDie += Character_OnDie;
+		EventBus.instance.SubscribeOn_Character_Died(Character_OnDie);
 		EventBus.instance.SubscribeGhostDied(UpdateScoreText);
 		// Инициализация начальных значений
 		Character_OnGetDamage();
@@ -77,10 +80,18 @@ public partial class UI : CanvasLayer
 	private void Character_OnDie()
 	{
 		UDiedText.Visible = true;
+		RestartBtn.Visible = true;
 	}
 
 	private void Character_OnGetDamage()
 	{
 		HealthText.Text = Character.GetHealth().ToString();
 	}
+	private void _on_Restart_pressed()
+	{
+		GetTree().ReloadCurrentScene();
+	}
 }
+
+
+

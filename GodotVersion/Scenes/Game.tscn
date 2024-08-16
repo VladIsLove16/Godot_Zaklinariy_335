@@ -56,6 +56,10 @@ script = ExtResource( 3 )
 script = ExtResource( 10 )
 
 [node name="main" parent="." instance=ExtResource( 11 )]
+margin_left = -3.0
+margin_top = 185.0
+margin_right = -828.0
+margin_bottom = -217.0
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 1 )
@@ -89,9 +93,18 @@ text = "0
 
 [node name="UDied" type="Label" parent="UI"]
 visible = false
-margin_left = 372.0
-margin_top = 214.0
-margin_right = 655.0
-margin_bottom = 345.0
+margin_left = 466.0
+margin_top = 269.0
+margin_right = 749.0
+margin_bottom = 400.0
 text = "U died
 "
+
+[node name="Restart" type="Button" parent="UI"]
+margin_left = 406.0
+margin_top = 345.0
+margin_right = 620.0
+margin_bottom = 406.0
+text = "Restart"
+
+[connection signal="pressed" from="UI/Restart" to="UI" method="_on_Restart_pressed"]

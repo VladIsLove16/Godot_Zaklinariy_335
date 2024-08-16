@@ -5,9 +5,11 @@ public partial class Character : Spatial
 {
 	[Export]
 	public int Health;
-	public event Action OnDie;
 	public event Action OnGetDamage;
-	public void GetDamage()
+    [Export]
+    public bool candie=false;
+
+    public void GetDamage()
 	{
 		Health--;
 		OnGetDamage.Invoke();
@@ -20,7 +22,11 @@ public partial class Character : Spatial
 	}
 	private void Die()
 	{
-		OnDie.Invoke();
-		AudioManager.Instance.PlaySound(AudioManager.SoundType.PlayerDie);
+		if(candie)
+		{
+
+            EventBus.instance.RaiseOn_Character_Died();
+            AudioManager.Instance.PlaySound(AudioManager.SoundType.PlayerDie);
+        }
 	}
 }

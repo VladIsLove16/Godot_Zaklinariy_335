@@ -17,8 +17,7 @@ func _ready() -> void:
 
 
 func on_message(message):
-	print("Message from HUD:", message)
-	$messages.text += '[Message]: '+message+'\n'
+	print(message)
 
 
 func on_connected():

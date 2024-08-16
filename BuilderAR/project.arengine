@@ -1,6 +1,12 @@
 {
 	"appinfo": {
-		"project_name": "overlap_game_test"
+		"project_name": "overlap_game_test",
+		"uptime": "1723818051.376",
+		"ar_engine_ver": "1.0.*",
+		"build": "134",
+		"format": "scene",
+		"id": "application_id",
+		"version": "0.0.1"
 	},
 	"application": {
 		"class": "ARMain",

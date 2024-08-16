@@ -14,7 +14,7 @@ public class GameManager : Spatial
 		SwipeInput =  GetNode<SwipeInput>("../SwipeInput");
 
 		SwipeInput.OnSwipe += SwipeInput_OnSwipe;
-		Character.OnDie += Character_OnDie;
+		EventBus.instance.SubscribeOn_Character_Died(Character_OnDie);
 		EventBus.instance. SubscribeOn_Ghost_Reached_Character(CharacterGetDamage);
 
 	}
