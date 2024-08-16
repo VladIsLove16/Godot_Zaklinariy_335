@@ -64,13 +64,14 @@ public partial class GhostSpawner : Spatial
 			{
 				Ghost ghost = (Ghost)pfGhost.Instance(); //Mob mob = (Mob)MobScene.Instance();
 			   
-				SwipeType type = (SwipeType)(GD.Randi() % 2);
+				SwipeType swipeType = (SwipeType)(GD.Randi() % 2);
 				Godot.Vector3 playerPosition =
 					//GetViewport().GetCamera().GlobalTransform.origin;
 					GetNode<Character>("../Character").Transform.origin;
 
+				EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, 0,swipeType.ToString());
 				ghost.speed = StartSpeed+additionSpeed;
-				ghost.Construct(type, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
+				ghost.Construct(swipeType, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
 				
 				AddChild(ghost);
 			}

@@ -17,6 +17,9 @@
 
 [node name="Game" type="Spatial"]
 
+[node name="EventBus" type="Node" parent="."]
+script = ExtResource( 12 )
+
 [node name="GameManager" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.999815, 0.0192323, 0, -0.0192323, 0.999815, 0, 0, 0 )
 script = ExtResource( 2 )
@@ -92,6 +95,3 @@ text = "U died
 "
 
 [node name="main" parent="." instance=ExtResource( 11 )]
-
-[node name="Node" type="Node" parent="."]
-script = ExtResource( 12 )
