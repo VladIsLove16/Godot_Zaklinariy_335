@@ -1,0 +1,95 @@
+extends AROverlap
+
+enum Direction{
+	up,
+	right,
+	down,
+	left
+}
+var direction: int = Direction.down
+var is_moving: bool = false
+var fps: float = 20
+var frame_time: float = 0
+
+var sprite: ARImage
+var bar: ARProgressBar
+
+var health: float = 5.0
+var max_health: float = 10.0
+
+
+func start() -> void:
+	sprite = get_ar_element("ARImage")
+	bar = get_ar_element("ARProgressBar")
+	bar.current_percent = health / max_health * 100
+	
+	api("subscribe_to", "swp_left_joypad_up", "joy_up_pressed")
+	api("subscribe_to", "swp_left_joypad_down", "joy_down_pressed")
+	api("subscribe_to", "swp_left_joypad_left", "joy_left_pressed")
+	api("subscribe_to", "swp_left_joypad_right", "joy_right_pressed")
+
+
+func update_process(delta: float) -> void:
+	if is_moving:
+		# Перемещение
+		if direction == Direction.up:
+			self.top = self.top -3
+		elif direction == Direction.down:
+			self.top = self.top + 3
+		elif direction == Direction.right:
+			self.left = self.left + 3
+		elif direction == Direction.left:
+			self.left = self.left - 3
+		
+		if frame_time >= 1.0 / fps:
+			# Время сменить кадр
+			var frame_num: int = sprite.frame_coord.x
+			frame_num += 1
+			frame_time = 0.0
+			sprite.frame_coord = Vector2(frame_num, direction)
+		frame_time += delta
+	else:
+		sprite.frame_coord = Vector2(0, direction)
+
+
+func joy_up_pressed(state: String) -> void:
+	if state == "1":
+		is_moving = true
+		direction = Direction.up
+		sprite.frame_coord = Vector2(0, direction)
+	else:
+		is_moving = false
+
+
+func joy_down_pressed(state: String) -> void:
+	if state == "1":
+		is_moving = true
+		direction = Direction.down
+		sprite.frame_coord = Vector2(0, direction)
+	else:
+		is_moving = false
+
+
+func joy_right_pressed(state: String) -> void:
+	if state == "1":
+		is_moving = true
+		direction = Direction.right
+		sprite.frame_coord = Vector2(0, direction)
+	else:
+		is_moving = false
+
+
+func joy_left_pressed(state: String) -> void:
+	if state == "1":
+		is_moving = true
+		direction = Direction.left
+		sprite.frame_coord = Vector2(0, direction)
+	else:
+		is_moving = false
+
+
+func change_health(value: float) -> void:
+	health += value
+	if health > max_health:
+		health = max_health
+	bar.current_percent = health / max_health * 100
