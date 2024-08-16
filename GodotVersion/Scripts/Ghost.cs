@@ -12,7 +12,9 @@ public partial class Ghost : Sprite3D
 	public override void _Process(float delta)
 	{
 		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, (speed + additionSpeed) * (float)delta));
-		ChangeSpeed(delta);
+        EventBus.instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.x, 0);
+
+        ChangeSpeed(delta);
 		TargetReached();
 	}
 
@@ -52,6 +54,7 @@ public partial class Ghost : Sprite3D
 		AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostDie);
 
 		EventBus.instance.RaiseGhostDied();
+
 		QueueFree();
 	}
 

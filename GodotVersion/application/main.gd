@@ -46,10 +46,14 @@ func on_input(type, state):
 	})
 
 
-func on_GodotSendMessage(type,state):
+func on_GodotSendMessage(type,arg1,arg2,arg3,arg4):
 	api('send_to_hud_app', {
 		'type' : type,
-		'state' : state
+		'arg1' : arg1,
+		'arg2' : arg2,
+		'arg3' : arg3,
+		'arg4' : arg4,
+		
 	})
 
 

@@ -5,7 +5,7 @@ public partial class ScoreManager : Node
 	public int Score;
 	public override void _Ready()
 	{
-		EventBus.SubscribeGhostDied(_on_Ghost_GhostDied);
+		EventBus.instance.SubscribeGhostDied(_on_Ghost_GhostDied);
 	}
 	private void _on_Ghost_GhostDied()
 	{
