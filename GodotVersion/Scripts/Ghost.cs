@@ -8,21 +8,29 @@ public partial class Ghost : Sprite3D
 	private Vector3 target;
 	public float speed;
 	float ElapsedTime;
-	float additionSpeed;
+	private bool canBeKilled;
+
 	public override void _Process(float delta)
 	{
-		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, (speed + additionSpeed) * (float)delta));
+		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, (speed) * (float)delta));
 
 		EventBus.instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.z, 0);
 
 		ChangeSpeed(delta);
 		TargetReached();
 	}
+	public void SetCanBeKilled(bool flag)
+	{
+		canBeKilled = flag;
 
+	}
+	public bool CanBeKilled()
+	{
+		return canBeKilled;
+	}
 	private void ChangeSpeed(float delta)
 	{
 		ElapsedTime += delta;
-		additionSpeed = ElapsedTime / 2;
 	}
 
 	private void TargetReached()

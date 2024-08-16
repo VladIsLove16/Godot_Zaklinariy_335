@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Scripts/UI.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=2]
@@ -12,10 +12,15 @@
 [ext_resource path="res://Scripts/Testing.cs" type="Script" id=10]
 [ext_resource path="res://application/main.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/EventBus.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/GhostKillingZone.cs" type="Script" id=13]
+[ext_resource path="res://Sounds/Aries_Beats_-_80s_Party.mp3" type="AudioStream" id=14]
 
 [sub_resource type="SphereShape" id=1]
 
+[sub_resource type="BoxShape" id=2]
+
 [node name="Game" type="Spatial"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99861, 0.171808, -4.77834 )
 
 [node name="EventBus" type="Node" parent="."]
 script = ExtResource( 12 )
@@ -28,10 +33,10 @@ script = ExtResource( 2 )
 script = ExtResource( 5 )
 pfGhost = ExtResource( 6 )
 SpawnOnAwake = true
-StartSpeed = 10.0
+StartSpeed = 12.5
 
 [node name="Character" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
 script = ExtResource( 9 )
 Health = 1
 
@@ -50,6 +55,15 @@ script = ExtResource( 7 )
 script = ExtResource( 8 )
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = 5.205
+autoplay = true
+script = ExtResource( 3 )
+
+[node name="Sounds" type="AudioStreamPlayer" parent="."]
+volume_db = 5.205
+autoplay = true
+bus = "Sounds"
 script = ExtResource( 3 )
 
 [node name="Testing" type="Node" parent="."]
@@ -107,4 +121,15 @@ margin_right = 620.0
 margin_bottom = 406.0
 text = "Restart"
 
+[node name="UI" type="Node" parent="UI"]
+
+[node name="GhostKillingZone" type="Area" parent="."]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 10, 0, 0, 83.8277 )
+script = ExtResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GhostKillingZone"]
+shape = SubResource( 2 )
+
 [connection signal="pressed" from="UI/Restart" to="UI" method="_on_Restart_pressed"]
+[connection signal="area_entered" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_entered"]
+[connection signal="area_exited" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_exited"]

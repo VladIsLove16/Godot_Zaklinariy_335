@@ -35,7 +35,7 @@ public class GameManager : Spatial
 			GD.Print("Ghost is null");
 			return;
 		}
-		if (swipeArgs.swipeType == ghost.SwipeType )
+		if (swipeArgs.swipeType == ghost.SwipeType && ghost.CanBeKilled())
 		{
 			ghost.Die();
 		}

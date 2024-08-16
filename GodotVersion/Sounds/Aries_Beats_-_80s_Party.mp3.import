@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/Aries_Beats_-_80s_Party.mp3-1fefebfa18883509fecfaf0749b39ecb.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Aries_Beats_-_80s_Party.mp3"
+dest_files=[ "res://.import/Aries_Beats_-_80s_Party.mp3-1fefebfa18883509fecfaf0749b39ecb.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0

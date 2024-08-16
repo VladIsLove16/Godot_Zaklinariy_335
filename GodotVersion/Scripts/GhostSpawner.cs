@@ -4,7 +4,10 @@ using static SwipeInput;
 
 public partial class GhostSpawner : Spatial
 {
-	[Export]
+
+    [Export]
+    private float FirstSpawnDelay;
+    [Export]
 	private float spawnDelay;
 	[Export]
 	private float untilSpawn;
@@ -14,32 +17,39 @@ public partial class GhostSpawner : Spatial
 	private bool SpawnByTime;
 	private bool CanSpawn=true;
 	[Export]
-	private bool SpawnOnAwake;
+	private bool SpawnOnAwake ;
 	[Export]
 	private Character character;
 	[Export]
 	private float ElapsedTime;
 	[Export]
-	private float additionSpeed;
-	[Export]
 	private float StartSpeed;
 	public override void _Ready()
 	{
-		if (SpawnOnAwake)
-			Spawn();
+		
 		EventBus.instance.SubscribeGhostDied(Ghost_OnDie);
 
 	}
 	public override void _Process(float delta)
 	{
+		if (SpawnOnAwake)
+		{
+			if (FirstSpawnDelay > 0)
+				FirstSpawnDelay -= delta;
+			else
+			{
+                Spawn();
+                SpawnOnAwake = false;
+            }
+			
+		}
 		if (CanSpawn)
 		{
-			ElapsedTime += delta;
-			additionSpeed = ElapsedTime / 2;
+            ElapsedTime += delta;
 			if (SpawnByTime)
 			{
 				untilSpawn -= delta;
-				if (untilSpawn < 0)
+				if (untilSpawn < 0 && FirstSpawnDelay<0)
 				{
 					Spawn();
 					untilSpawn = spawnDelay;
@@ -69,7 +79,7 @@ public partial class GhostSpawner : Spatial
 					//GetViewport().GetCamera().GlobalTransform.origin;
 					GetNode<Character>("../Character").Transform.origin;
 
-                ghost.speed = StartSpeed + additionSpeed;
+				ghost.speed = StartSpeed;
                 ghost.Construct(swipeType, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
 
                 EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, 0,swipeType.ToString());

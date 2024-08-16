@@ -4,10 +4,15 @@ using System;
 public class EventBus : Node
 {
 	public event Action On_Ghost_Died;
-	public event Action On_Character_Died;
+	public event Action On_Ghost_Spawn;
 	public event Action On_Ghost_Reached_Character;
 	public event Action On_Ghost_Position_Changed;
-	public event Action On_Ghost_Spawn;
+	public event Action On_Ghost_CanBeKilled;
+
+
+	public event Action On_Character_Died;
+
+
 	public Node node;
 	public static EventBus instance;
 	public override void _Ready()
@@ -76,7 +81,7 @@ public class EventBus : Node
 	public void RaiseOn_Ghost_Spawn(float x,int y,string swipeType)
 	{
 		On_Ghost_Spawn?.Invoke();
-		SendMessage("ghost", "spawn", x.ToString(), y.ToString());
+		SendMessage("ghost", "spawn", x.ToString(), y.ToString(), swipeType);
 	}
 	public void SubscribeOn_Ghost_Spawn(Action action)
 	{
