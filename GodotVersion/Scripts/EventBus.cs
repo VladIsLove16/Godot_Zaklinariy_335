@@ -9,6 +9,7 @@ public class EventBus : Node
 	public event Action On_Ghost_Position_Changed;
 	public event Action On_Ghost_CanBeKilled;
 
+	public event Action On_ScoreChanged;
 
 	public event Action On_Character_Died;
 
@@ -59,6 +60,21 @@ public class EventBus : Node
 	public void UnSubscribeOn_Ghost_Position_Changed(Action action)
 	{
 		On_Ghost_Position_Changed -= action;
+	}
+
+
+	public void RaiseOn_ScoreChanged(int score)
+	{
+		On_ScoreChanged?.Invoke();
+		SendMessage("score", score.ToString());
+	}
+	public void SubscribeOn_ScoreChanged(Action action)
+	{
+		On_ScoreChanged += action;
+	}
+	public void UnSubscribeOn_ScoreChanged(Action action)
+	{
+		On_ScoreChanged -= action;
 	}
 	
 

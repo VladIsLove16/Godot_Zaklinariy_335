@@ -31,9 +31,10 @@ script = ExtResource( 2 )
 
 [node name="GhostSpawner" type="Spatial" parent="."]
 script = ExtResource( 5 )
+FirstSpawnDelay = 2.12
 pfGhost = ExtResource( 6 )
 SpawnOnAwake = true
-StartSpeed = 12.5
+StartSpeed = 22.7
 
 [node name="Character" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )

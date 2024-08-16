@@ -16,6 +16,8 @@ public partial class ScoreManager : Node
 	public void AddScore()
 	{
 		Score++;
+		EventBus.instance.RaiseOn_ScoreChanged(Score);
+
 	}
 	public void Reset()
 	{
