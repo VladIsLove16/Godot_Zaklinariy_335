@@ -5,9 +5,9 @@ public partial class ScoreManager : Node
 	public int Score;
 	public override void _Ready()
 	{
-		EventBus.SubscribeGhostDied(Ghost_OnDie);
+		EventBus.SubscribeGhostDied(_on_Ghost_GhostDied);
 	}
-	private void Ghost_OnDie()
+	private void _on_Ghost_GhostDied()
 	{
 		AddScore();
 		GD.Print("Ghost died and score:" + Score);
@@ -22,3 +22,6 @@ public partial class ScoreManager : Node
 		Score = 0;
 	}
 }
+
+
+

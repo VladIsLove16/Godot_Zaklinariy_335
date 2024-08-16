@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scripts/UI.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://Scripts/Character.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Testing.cs" type="Script" id=10]
 [ext_resource path="res://application/main.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Scripts/EventBus.cs" type="Script" id=12]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -27,7 +28,7 @@ SpawnOnAwake = true
 StartSpeed = 10.0
 
 [node name="Character" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 76.7077 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100 )
 script = ExtResource( 9 )
 Health = 1
 
@@ -91,3 +92,6 @@ text = "U died
 "
 
 [node name="main" parent="." instance=ExtResource( 11 )]
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource( 12 )

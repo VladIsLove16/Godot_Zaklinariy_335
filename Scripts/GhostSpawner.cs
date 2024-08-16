@@ -73,6 +73,9 @@ public partial class GhostSpawner : Spatial
 				ghost.Construct(type, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
 				
 				AddChild(ghost);
+
+				Node node = GetNode("../main");
+				node.Call("on_Ghost_Spawn", "game", "ghost_spawn");
 			}
 		}
 	}
@@ -88,3 +91,6 @@ public partial class GhostSpawner : Spatial
 		}
 	}
 }
+
+
+
