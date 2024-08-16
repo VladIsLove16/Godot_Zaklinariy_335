@@ -3,33 +3,48 @@ using System;
 
 public class EventBus : Node
 {
-	public static event Action On_Ghost_Died;
-	public static event Action On_Ghost_Reached_Character;
-	[Signal]
-	public delegate void GhostDied();
-	public static void RaiseGhostDied()
+	public event Action On_Ghost_Died;
+	public event Action On_Ghost_Reached_Character;
+	public event Action On_Ghost_Position_Changed;
+    public Node node;
+    public static EventBus instance;
+	public override void _Ready()
+	{
+		instance = this;
+		node = GetNode("../main");
+
+    }
+	private void SendMessage(params string[] args)
+	{
+        node.Call("on_GodotSendMessage", args[0], args[1]);
+    }
+    public void RaiseGhostDied()
 	{
 		On_Ghost_Died?.Invoke();
-		GD.Print("Ghost Died");
+		SendMessage("ghost", "spawn");
+
+        GD.Print("Ghost Died");
 	}
-	public static void SubscribeGhostDied(Action action)
+	public   void SubscribeGhostDied(Action action)
 	{
 		On_Ghost_Died += action;
 	}
-	public static void UnSubscribeGhostDied(Action action)
+	public   void UnSubscribeGhostDied(Action action)
 	{
 		On_Ghost_Died -= action;
 	}
-	public static void RaiseOn_Ghost_Reached_Character()
+	public   void RaiseOn_Ghost_Reached_Character()
 	{
 		On_Ghost_Reached_Character?.Invoke();
-		GD.Print("Ghost Died");
+        SendMessage("ghost", "reachedcharacter");
+
+        GD.Print("Ghost Died");
 	}
-	public static void SubscribeOn_Ghost_Reached_Character(Action action)
+	public   void SubscribeOn_Ghost_Reached_Character(Action action)
 	{
 		On_Ghost_Reached_Character += action;
 	}
-	public static void UnSubscribeOn_Ghost_Reached_Character(Action action)
+	public   void UnSubscribeOn_Ghost_Reached_Character(Action action)
 	{
 		On_Ghost_Reached_Character -= action;
 	}

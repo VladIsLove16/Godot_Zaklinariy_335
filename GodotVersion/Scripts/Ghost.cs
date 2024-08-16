@@ -26,7 +26,7 @@ public partial class Ghost : Sprite3D
 	{
 		if(GlobalTransform.origin.DistanceTo(target) < 1f )
 		{
-			EventBus.RaiseOn_Ghost_Reached_Character();
+			EventBus.instance.RaiseOn_Ghost_Reached_Character();
 			Die();
 			QueueFree();
 		}
@@ -51,7 +51,7 @@ public partial class Ghost : Sprite3D
 	{
 		AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostDie);
 
-		EventBus.RaiseGhostDied();
+		EventBus.instance.RaiseGhostDied();
 		QueueFree();
 	}
 

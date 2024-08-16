@@ -46,10 +46,10 @@ func on_input(type, state):
 	})
 
 
-func on_Ghost_Spawn(type,text):
+func on_GodotSendMessage(type,state):
 	api('send_to_hud_app', {
 		'type' : type,
-		'text' : text
+		'state' : state
 	})
 
 

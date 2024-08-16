@@ -27,7 +27,7 @@ public partial class GhostSpawner : Spatial
 	{
 		if (SpawnOnAwake)
 			Spawn();
-		EventBus.SubscribeGhostDied(Ghost_OnDie);
+		EventBus.instance.SubscribeGhostDied(Ghost_OnDie);
 
 	}
 	public override void _Process(float delta)
@@ -73,9 +73,6 @@ public partial class GhostSpawner : Spatial
 				ghost.Construct(type, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
 				
 				AddChild(ghost);
-
-				Node node = GetNode("../main");
-				node.Call("on_Ghost_Spawn", "game", "ghost_spawn");
 			}
 		}
 	}

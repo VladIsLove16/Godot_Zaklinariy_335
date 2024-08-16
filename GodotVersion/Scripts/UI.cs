@@ -27,7 +27,7 @@ public partial class UI : CanvasLayer
 		// Подписка на события
 		Character.OnGetDamage += Character_OnGetDamage;
 		Character.OnDie += Character_OnDie;
-		EventBus.SubscribeGhostDied(UpdateScoreText);
+		EventBus.instance.SubscribeGhostDied(UpdateScoreText);
 		// Инициализация начальных значений
 		Character_OnGetDamage();
 		HideAllIcons();
