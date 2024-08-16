@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/GhostDied.mp3-53616a47cb4b6ae44a6132af1b4b3e92.mp3str"
+
+[deps]
+
+source_file="res://Sounds/GhostDied.mp3"
+dest_files=[ "res://.import/GhostDied.mp3-53616a47cb4b6ae44a6132af1b4b3e92.mp3str" ]
+
+[params]
+
+loop=true
+loop_offset=0
