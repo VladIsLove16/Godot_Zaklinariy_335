@@ -47,9 +47,15 @@ public partial class UI : CanvasLayer
 	private void ShowSwipeHelp()
 	{
 		Ghost ghost = GhostSpawner.GetCurrentGhost();
-		if (ghost != null)
+		if (ghost != null )
 		{
-			ShowSwipeIcon(ghost.SwipeType);
+
+			if( ghost.CanBeKilled())
+				ShowSwipeIcon(ghost.SwipeType);
+			else
+			{
+				ShowSwipeIcon(ghost.SwipeType,0.3f);
+			}
 		}
 		else
 		{
@@ -57,17 +63,19 @@ public partial class UI : CanvasLayer
 		}
 	}
 
-	private void ShowSwipeIcon(SwipeInput.SwipeType swipeType)
+	private void ShowSwipeIcon(SwipeInput.SwipeType swipeType,float alpha = 1f)
 	{
 		HideAllIcons();
 
 		if (swipeType == SwipeInput.SwipeType.left)
 		{
 			LeftSwipeIcon.Visible = true;
+			LeftSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
 		}
 		else if (swipeType == SwipeInput.SwipeType.right)
 		{
 			RightSwipeIcon.Visible = true;
+			RightSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
 		}
 	}
 

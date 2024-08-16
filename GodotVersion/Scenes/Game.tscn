@@ -31,13 +31,13 @@ script = ExtResource( 2 )
 
 [node name="GhostSpawner" type="Spatial" parent="."]
 script = ExtResource( 5 )
-FirstSpawnDelay = 2.12
+FirstSpawnDelay = 1.5
 pfGhost = ExtResource( 6 )
 SpawnOnAwake = true
-StartSpeed = 22.7
+StartSpeed = 22.8
 
 [node name="Character" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 11.9759 )
 script = ExtResource( 9 )
 Health = 1
 
@@ -75,6 +75,14 @@ margin_left = -3.0
 margin_top = 185.0
 margin_right = -828.0
 margin_bottom = -217.0
+
+[node name="GhostKillingZone" type="Area" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 0.5, -1, 0, 10 )
+script = ExtResource( 13 )
+
+[node name="CollisionShape" type="CollisionShape" parent="GhostKillingZone"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23591, 0.200059 )
+shape = SubResource( 2 )
 
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 1 )
@@ -124,13 +132,6 @@ text = "Restart"
 
 [node name="UI" type="Node" parent="UI"]
 
-[node name="GhostKillingZone" type="Area" parent="."]
-transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 10, 0, 0, 83.8277 )
-script = ExtResource( 13 )
-
-[node name="CollisionShape" type="CollisionShape" parent="GhostKillingZone"]
-shape = SubResource( 2 )
-
-[connection signal="pressed" from="UI/Restart" to="UI" method="_on_Restart_pressed"]
 [connection signal="area_entered" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_entered"]
 [connection signal="area_exited" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_exited"]
+[connection signal="pressed" from="UI/Restart" to="UI" method="_on_Restart_pressed"]
