@@ -55,6 +55,8 @@ script = ExtResource( 3 )
 [node name="Testing" type="Node" parent="."]
 script = ExtResource( 10 )
 
+[node name="main" parent="." instance=ExtResource( 11 )]
+
 [node name="UI" type="CanvasLayer" parent="."]
 script = ExtResource( 1 )
 
@@ -93,5 +95,3 @@ margin_right = 655.0
 margin_bottom = 345.0
 text = "U died
 "
-
-[node name="main" parent="." instance=ExtResource( 11 )]

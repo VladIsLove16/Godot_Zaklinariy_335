@@ -69,10 +69,11 @@ public partial class GhostSpawner : Spatial
 					//GetViewport().GetCamera().GlobalTransform.origin;
 					GetNode<Character>("../Character").Transform.origin;
 
-				EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, 0,swipeType.ToString());
-				ghost.speed = StartSpeed+additionSpeed;
-				ghost.Construct(swipeType, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
-				
+                ghost.speed = StartSpeed + additionSpeed;
+                ghost.Construct(swipeType, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
+
+                EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, 0,swipeType.ToString());
+
 				AddChild(ghost);
 			}
 		}
