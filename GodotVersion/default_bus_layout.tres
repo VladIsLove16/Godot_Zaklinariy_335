@@ -5,5 +5,5 @@ bus/1/name = "Sounds"
 bus/1/solo = false
 bus/1/mute = false
 bus/1/bypass_fx = false
-bus/1/volume_db = 3.04252
+bus/1/volume_db = 5.42672
 bus/1/send = ""

@@ -109,6 +109,7 @@ public class EventBus : Node
 	public void RaiseOn_PlayerRight()
 	{
 		On_PlayerRight?.Invoke();
+		GD.Print("PlayerRight");
 		SendMessage("input", "right");
 	}
 	public void SubscribeOn_PlayerRight(Action action)

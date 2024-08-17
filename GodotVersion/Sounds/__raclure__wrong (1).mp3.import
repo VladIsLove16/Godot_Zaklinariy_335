@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/__raclure__wrong (1).mp3-e8bb3e12be4066f576d86f24d66fe68c.mp3str"
+
+[deps]
+
+source_file="res://Sounds/__raclure__wrong (1).mp3"
+dest_files=[ "res://.import/__raclure__wrong (1).mp3-e8bb3e12be4066f576d86f24d66fe68c.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0
