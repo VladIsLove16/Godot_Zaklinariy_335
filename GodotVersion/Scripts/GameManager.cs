@@ -15,7 +15,7 @@ public class GameManager : Spatial
 
 		SwipeInput.OnSwipe += SwipeInput_OnSwipe;
 		EventBus.instance.SubscribeOn_Character_Died(Character_OnDie);
-		EventBus.instance. SubscribeOn_Ghost_Reached_Character(CharacterGetDamage);
+		EventBus.instance.Sub(CharacterGetDamage);
 
 	}
 	private void CharacterGetDamage()
@@ -37,13 +37,13 @@ public class GameManager : Spatial
 		}
 		if (swipeArgs.swipeType == ghost.SwipeType && ghost.CanBeKilled())
 		{
-			EventBus.instance.RaiseOn_RightInput();
+			EventBus.instance.RaiseOn_PlayerRight();
 			ghost.Die();
 		}
 		else
 		{
 			GD.Print("wronginput");
-			EventBus.instance.RaiseOn_WrongInput();
+			EventBus.instance.RaiseOn_PlayerMistake();
 		}
 	}
 	public void RestartGame()

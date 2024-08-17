@@ -91,7 +91,7 @@ public class EventBus : Node
 		On_Ghost_CanBeKilled -= action;
 	}
 
-	public void RaiseOn_WrongInput()
+	public void RaiseOn_PlayerMistake()
 	{
 		On_PlayerMistake?.Invoke();
 		
@@ -106,7 +106,7 @@ public class EventBus : Node
 		On_PlayerMistake -= action;
 	}
 
-	public void RaiseOn_RightInput()
+	public void RaiseOn_PlayerRight()
 	{
 		On_PlayerRight?.Invoke();
 		SendMessage("input", "right");
@@ -165,42 +165,5 @@ public class EventBus : Node
 	{
 		On_Ghost_Spawn -= action;
 	}
-
-
-
-	public void RaiseGhostDied()
-	{
-		On_Ghost_Died?.Invoke();
-		SendMessage("ghost", "died");
-
-		GD.Print("Ghost Died");
-	}
-	public   void SubscribeGhostDied(Action action)
-	{
-		On_Ghost_Died += action;
-	}
-	public   void UnSubscribeGhostDied(Action action)
-	{
-		On_Ghost_Died -= action;
-	}
-
-
-
-
-
-	public   void RaiseOn_Ghost_Reached_Character()
-	{
-		On_Ghost_Reached_Character?.Invoke();
-		SendMessage("ghost", "reachedcharacter");
-
-		GD.Print("Ghost reachedcharacter");
-	}
-	public   void SubscribeOn_Ghost_Reached_Character(Action action)
-	{
-		On_Ghost_Reached_Character += action;
-	}
-	public   void UnSubscribeOn_Ghost_Reached_Character(Action action)
-	{
-		On_Ghost_Reached_Character -= action;
-	}
+	
 }
