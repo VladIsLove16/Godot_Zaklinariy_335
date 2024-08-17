@@ -1,0 +1,13 @@
+extends AROverlap
+
+#Connect:
+var heart_sprite: ARImage
+
+#Config:
+var heart_sprite_change: int 
+
+func start() -> void:
+	heart_sprite = get_ar_element("ARImage")
+		
+func heart_sprite_change (heart_sprite_change:int ) -> void:
+	heart_sprite.frame = int(heart_sprite_change)

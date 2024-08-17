@@ -1,12 +1,6 @@
 {
 	"appinfo": {
-		"project_name": "overlap_game_test",
-		"uptime": "1723818051.376",
-		"ar_engine_ver": "1.0.*",
-		"build": "134",
-		"format": "scene",
-		"id": "application_id",
-		"version": "0.0.1"
+		"project_name": "overlap_game_test"
 	},
 	"application": {
 		"class": "ARMain",
@@ -46,50 +40,11 @@
 				"properties": [
 					[
 						"name",
-						"S"
+						"Border"
 					],
 					[
 						"collapsed_in_tree",
-						false
-					],
-					[
-						"collapsed_in_tree_flags",
-						{
-							"is_visible": false
-						}
-					],
-					[
-						"top",
-						839
-					],
-					[
-						"width",
-						1820
-					],
-					[
-						"height",
-						1
-					],
-					[
-						"anchors",
-						16
-					],
-					[
-						"shape",
-						0
-					]
-				]
-			},
-			{
-				"class": "AROverlap",
-				"properties": [
-					[
-						"name",
-						"N"
-					],
-					[
-						"collapsed_in_tree",
-						false
+						true
 					],
 					[
 						"collapsed_in_tree_flags",
@@ -103,120 +58,7 @@
 					],
 					[
 						"height",
-						1
-					],
-					[
-						"anchors",
-						16
-					],
-					[
-						"shape",
-						0
-					]
-				]
-			},
-			{
-				"class": "AROverlap",
-				"properties": [
-					[
-						"name",
-						"W"
-					],
-					[
-						"collapsed_in_tree",
-						false
-					],
-					[
-						"collapsed_in_tree_flags",
-						{
-							"is_visible": false
-						}
-					],
-					[
-						"width",
-						1
-					],
-					[
-						"height",
 						840
-					],
-					[
-						"anchors",
-						16
-					],
-					[
-						"shape",
-						0
-					]
-				]
-			},
-			{
-				"class": "AROverlap",
-				"properties": [
-					[
-						"name",
-						"E"
-					],
-					[
-						"collapsed_in_tree",
-						false
-					],
-					[
-						"collapsed_in_tree_flags",
-						{
-							"is_visible": false
-						}
-					],
-					[
-						"left",
-						1819
-					],
-					[
-						"width",
-						1
-					],
-					[
-						"height",
-						840
-					],
-					[
-						"anchors",
-						16
-					],
-					[
-						"shape",
-						0
-					]
-				]
-			},
-			{
-				"class": "AROverlap",
-				"properties": [
-					[
-						"name",
-						"Cusper"
-					],
-					[
-						"collapsed_in_tree",
-						false
-					],
-					[
-						"collapsed_in_tree_flags",
-						{
-							"is_visible": false
-						}
-					],
-					[
-						"left",
-						484.69577
-					],
-					[
-						"width",
-						128
-					],
-					[
-						"height",
-						128
 					],
 					[
 						"anchors",
@@ -227,168 +69,17 @@
 						"00ffffff"
 					],
 					[
-						"ar_script",
-						"scripts/potion.arscript"
-					],
-					[
 						"shape",
 						0
 					]
 				],
 				"children": [
 					{
-						"class": "ARImage",
+						"class": "AROverlap",
 						"properties": [
 							[
 								"name",
-								"ARImage"
-							],
-							[
-								"collapsed_in_tree",
-								false
-							],
-							[
-								"collapsed_in_tree_flags",
-								{
-									"is_visible": false
-								}
-							],
-							[
-								"width",
-								128
-							],
-							[
-								"height",
-								128
-							],
-							[
-								"anchors",
-								16
-							],
-							[
-								"image",
-								"images/lifepotion.png"
-							],
-							[
-								"h_frames",
-								4
-							]
-						]
-					}
-				]
-			},
-			{
-				"class": "AROverlap",
-				"properties": [
-					[
-						"name",
-						"Dwarf"
-					],
-					[
-						"collapsed_in_tree",
-						false
-					],
-					[
-						"collapsed_in_tree_flags",
-						{
-							"is_visible": false
-						}
-					],
-					[
-						"top",
-						566.081482
-					],
-					[
-						"left",
-						1549.840698
-					],
-					[
-						"width",
-						256
-					],
-					[
-						"height",
-						256
-					],
-					[
-						"anchors",
-						16
-					],
-					[
-						"self_paint",
-						"00ffffff"
-					],
-					[
-						"ar_script",
-						"scripts/dwarf.arscript"
-					],
-					[
-						"shape",
-						0
-					]
-				],
-				"children": [
-					{
-						"class": "ARImage",
-						"properties": [
-							[
-								"name",
-								"ARImage"
-							],
-							[
-								"collapsed_in_tree",
-								false
-							],
-							[
-								"collapsed_in_tree_flags",
-								{
-									"is_visible": false
-								}
-							],
-							[
-								"width",
-								256
-							],
-							[
-								"height",
-								256
-							],
-							[
-								"anchors",
-								16
-							],
-							[
-								"ar_script",
-								""
-							],
-							[
-								"image",
-								"images/dwarf_guardian-m-001.png"
-							],
-							[
-								"h_frames",
-								3
-							],
-							[
-								"v_frames",
-								4
-							],
-							[
-								"frame",
-								4
-							],
-							[
-								"frame_coord",
-								"(1, 1)"
-							]
-						]
-					},
-					{
-						"class": "ARProgressBar",
-						"properties": [
-							[
-								"name",
-								"ARProgressBar"
+								"S"
 							],
 							[
 								"collapsed_in_tree",
@@ -402,97 +93,32 @@
 							],
 							[
 								"top",
-								-10
+								839
 							],
 							[
 								"width",
-								256
+								1820
 							],
 							[
 								"height",
-								32
+								1
 							],
 							[
 								"anchors",
 								16
 							],
 							[
-								"percent_visible",
-								false
-							],
-							[
-								"color_front",
-								"ffdd0000"
-							],
-							[
-								"radius_back",
-								2
-							],
-							[
-								"radius_front",
-								2
+								"shape",
+								0
 							]
 						]
-					}
-				]
-			},
-			{
-				"class": "AROverlap",
-				"properties": [
-					[
-						"name",
-						"Total"
-					],
-					[
-						"collapsed_in_tree",
-						false
-					],
-					[
-						"collapsed_in_tree_flags",
-						{
-							"is_visible": false
-						}
-					],
-					[
-						"top",
-						20.070419
-					],
-					[
-						"left",
-						1665.880493
-					],
-					[
-						"width",
-						128
-					],
-					[
-						"height",
-						128
-					],
-					[
-						"anchors",
-						16
-					],
-					[
-						"self_paint",
-						"00ffffff"
-					],
-					[
-						"ar_script",
-						"scripts/Total.arscript"
-					],
-					[
-						"shape",
-						0
-					]
-				],
-				"children": [
+					},
 					{
-						"class": "ARLabel",
+						"class": "AROverlap",
 						"properties": [
 							[
 								"name",
-								"ARLabel"
+								"N"
 							],
 							[
 								"collapsed_in_tree",
@@ -506,24 +132,574 @@
 							],
 							[
 								"width",
-								128
+								1820
 							],
 							[
 								"height",
-								128
+								1
 							],
 							[
 								"anchors",
 								16
 							],
 							[
-								"text",
-								"0"
+								"shape",
+								0
+							]
+						]
+					},
+					{
+						"class": "AROverlap",
+						"properties": [
+							[
+								"name",
+								"W"
 							],
 							[
-								"font_size",
-								100
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"width",
+								1
+							],
+							[
+								"height",
+								840
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"shape",
+								0
 							]
+						]
+					},
+					{
+						"class": "AROverlap",
+						"properties": [
+							[
+								"name",
+								"E"
+							],
+							[
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"left",
+								1819
+							],
+							[
+								"width",
+								1
+							],
+							[
+								"height",
+								840
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"shape",
+								0
+							]
+						]
+					}
+				]
+			},
+			{
+				"class": "AROverlap",
+				"properties": [
+					[
+						"name",
+						"Loop"
+					],
+					[
+						"collapsed_in_tree",
+						false
+					],
+					[
+						"collapsed_in_tree_flags",
+						{
+							"is_visible": false
+						}
+					],
+					[
+						"width",
+						1820
+					],
+					[
+						"height",
+						840
+					],
+					[
+						"anchors",
+						16
+					],
+					[
+						"self_paint",
+						"25ffffff"
+					],
+					[
+						"ar_script",
+						"scripts/Loop.arscript"
+					],
+					[
+						"shape",
+						0
+					]
+				],
+				"children": [
+					{
+						"class": "AROverlap",
+						"properties": [
+							[
+								"name",
+								"Cusper"
+							],
+							[
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"top",
+								450
+							],
+							[
+								"left",
+								1000
+							],
+							[
+								"width",
+								128.000488
+							],
+							[
+								"height",
+								127.999939
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"self_paint",
+								"0000dddd"
+							],
+							[
+								"ar_script",
+								"scripts/Cusper.arscript"
+							],
+							[
+								"shape",
+								0
+							]
+						],
+						"children": [
+							{
+								"class": "ARImage",
+								"properties": [
+									[
+										"name",
+										"ARImage"
+									],
+									[
+										"collapsed_in_tree",
+										false
+									],
+									[
+										"collapsed_in_tree_flags",
+										{
+											"is_visible": false
+										}
+									],
+									[
+										"width",
+										128
+									],
+									[
+										"height",
+										128
+									],
+									[
+										"anchors",
+										16
+									],
+									[
+										"image",
+										"images/caspers.png"
+									],
+									[
+										"h_frames",
+										4
+									],
+									[
+										"v_frames",
+										4
+									]
+								]
+							}
+						]
+					},
+					{
+						"class": "AROverlap",
+						"properties": [
+							[
+								"name",
+								"Heart"
+							],
+							[
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"width",
+								419.999939
+							],
+							[
+								"height",
+								120.000061
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"self_paint",
+								"00ffffff"
+							],
+							[
+								"ar_script",
+								"scripts/Heart.arscript"
+							],
+							[
+								"shape",
+								0
+							]
+						],
+						"children": [
+							{
+								"class": "ARImage",
+								"properties": [
+									[
+										"name",
+										"ARImage"
+									],
+									[
+										"collapsed_in_tree",
+										false
+									],
+									[
+										"collapsed_in_tree_flags",
+										{
+											"is_visible": false
+										}
+									],
+									[
+										"width",
+										420
+									],
+									[
+										"height",
+										120
+									],
+									[
+										"anchors",
+										16
+									],
+									[
+										"image",
+										"images/heart.png"
+									],
+									[
+										"v_frames",
+										4
+									],
+									[
+										"frame",
+										3
+									],
+									[
+										"frame_coord",
+										"(0, 3)"
+									]
+								]
+							}
+						]
+					},
+					{
+						"class": "AROverlap",
+						"properties": [
+							[
+								"name",
+								"Arrows"
+							],
+							[
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"top",
+								361.291473
+							],
+							[
+								"left",
+								300.47583
+							],
+							[
+								"width",
+								300
+							],
+							[
+								"height",
+								300.000031
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"self_paint",
+								"00ffffff"
+							],
+							[
+								"ar_script",
+								"scripts/Arrows.arscript"
+							],
+							[
+								"shape",
+								0
+							]
+						],
+						"children": [
+							{
+								"class": "ARImage",
+								"properties": [
+									[
+										"name",
+										"ARImage"
+									],
+									[
+										"collapsed_in_tree",
+										false
+									],
+									[
+										"collapsed_in_tree_flags",
+										{
+											"is_visible": false
+										}
+									],
+									[
+										"width",
+										300
+									],
+									[
+										"height",
+										300
+									],
+									[
+										"anchors",
+										16
+									],
+									[
+										"image",
+										"images/direction.png"
+									],
+									[
+										"h_frames",
+										5
+									],
+									[
+										"v_frames",
+										4
+									],
+									[
+										"frame",
+										4
+									],
+									[
+										"frame_coord",
+										"(4, 0)"
+									]
+								]
+							}
+						]
+					},
+					{
+						"class": "AROverlap",
+						"properties": [
+							[
+								"name",
+								"Account"
+							],
+							[
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"top",
+								130
+							],
+							[
+								"width",
+								419.999817
+							],
+							[
+								"height",
+								160
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"self_paint",
+								"00ffffff"
+							],
+							[
+								"ar_script",
+								"scripts/Account.arscript"
+							],
+							[
+								"shape",
+								0
+							]
+						],
+						"children": [
+							{
+								"class": "ARLabel",
+								"properties": [
+									[
+										"name",
+										"ARLabel"
+									],
+									[
+										"collapsed_in_tree",
+										false
+									],
+									[
+										"collapsed_in_tree_flags",
+										{
+											"is_visible": false
+										}
+									],
+									[
+										"top",
+										10
+									],
+									[
+										"left",
+										150
+									],
+									[
+										"width",
+										300
+									],
+									[
+										"height",
+										160
+									],
+									[
+										"anchors",
+										16
+									],
+									[
+										"self_paint",
+										"ca5eff42"
+									],
+									[
+										"text",
+										"0"
+									],
+									[
+										"font_size",
+										100
+									],
+									[
+										"h_center",
+										false
+									],
+									[
+										"v_center",
+										true
+									]
+								]
+							},
+							{
+								"class": "ARImage",
+								"properties": [
+									[
+										"name",
+										"ARImage"
+									],
+									[
+										"collapsed_in_tree",
+										false
+									],
+									[
+										"collapsed_in_tree_flags",
+										{
+											"is_visible": false
+										}
+									],
+									[
+										"width",
+										160
+									],
+									[
+										"height",
+										160
+									],
+									[
+										"anchors",
+										16
+									],
+									[
+										"image",
+										"images/star.png"
+									]
+								]
+							}
 						]
 					}
 				]

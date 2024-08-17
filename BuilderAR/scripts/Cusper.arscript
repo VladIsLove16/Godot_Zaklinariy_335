@@ -1,0 +1,47 @@
+extends AROverlap
+
+#Connect:
+var cusper_sprite: ARImage
+var account: AROverlap
+
+#Config:
+var cusper_size_change: float
+var cusper_size_add_K:float = 0.5
+var cusper_init_top:float			= 450
+var cusper_init_left:float			= 1000
+
+#Account
+var account_text:int
+
+func start() -> void:
+		cusper_sprite 	= get_ar_element("ARImage")
+		account  			= get_ar_element("../Account")
+
+func cusper_init(cusper_init_size:float)->void:
+		self.top = cusper_init_top
+		self.left = cusper_init_left
+		self.width = cusper_init_size
+		self.height = cusper_init_size
+		cusper_sprite.width = cusper_init_size
+		cusper_sprite.height = cusper_init_size
+		api('out' , 'top: ' + str(cusper_init_top) + ' | ' + 'left: ' + str(cusper_init_left) )
+
+func cusper_size_change (cusper_size_change: float , cusper_size_add: float) -> void:
+		self.width = cusper_size_change
+		self.height = cusper_size_change
+		self.top -= cusper_size_add*cusper_size_add_K
+		self.left -= cusper_size_add*cusper_size_add_K
+		cusper_sprite.width = cusper_size_change
+		cusper_sprite.height = cusper_size_change
+		
+func cusper_sprite_change (cusper_sprite_change: float ) -> void:
+		cusper_sprite.frame += 1
+		
+func overlap_start(ar_element: AROverlap)->void:
+#	api('out' , 'overlap_start: ' + ar_element.name)
+	if ar_element.name == "Dwarf":
+		account_text+=1
+		account.account_text_change(str(account_text))
+		
+		
+	
