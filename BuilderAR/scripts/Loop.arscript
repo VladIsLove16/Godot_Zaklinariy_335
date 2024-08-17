@@ -1,0 +1,152 @@
+extends AROverlap
+
+#Connect:
+var cusper:AROverlap
+var heart:AROverlap
+var arrows:AROverlap
+var account:AROverlap
+
+#Loop control:
+var Loop_frame_time: float 		= 0
+var Loop_timer: float					= 0
+var Loop_fps: float 						= 16
+
+#Config:
+var max_Overlap_h 						= 840
+var max_Overlap_w 					= 1820 
+
+#Cusper:
+var cusper_size:float 					= 128
+var cusper_size_add:float			= 30
+var cusper_size_max:float			= 800
+var cusper_size_min:float			= 100
+var cusper_sprite_num				= 0
+var cusper_init_top:float				= 450
+var cusper_init_left:float				= 1000
+
+#Heart:
+var heart_sprite_num:int				= 3
+
+#Account:
+var account_text:int=0
+
+#Swipe:
+enum Direction{
+	up,
+	down,
+	left,
+	right
+}
+var direction = Direction.down
+var swipe_rand:int
+
+#Arrows:
+var arrows_sprite_vector:int
+var arrows_sprite_num:int
+
+func start() -> void:
+	cusper 	=get_ar_element("./Cusper")
+	heart		=get_ar_element("./Heart")
+	arrows	=get_ar_element("./Arrows")
+	account 	=get_ar_element("./Account")
+#		cusper_sprite = get_ar_element("./Cusper/ARImage")
+	api("connect_to_swp_app", {
+		"target_node" : self,
+		"on_message" : "on_message",
+		"on_error" : "on_error",
+		"on_connected" : "on_connected",
+		"on_disconnected" : "on_disconnected"
+	})
+	api("subscribe_to", "swp_left_joypad_up", "joy_up_pressed")
+	api("subscribe_to", "swp_left_joypad_down", "joy_down_pressed")
+	api("subscribe_to", "swp_left_joypad_left"	, "joy_left_pressed")
+	api("subscribe_to", "swp_left_joypad_right", "joy_right_pressed")
+
+func update_process(delta: float) -> void:
+	if Loop_frame_time >= 1.0 / Loop_fps:
+		Loop_timer += Loop_frame_time
+#		api('send_to_swp_app', str(Loop_timer))
+#		api('out' , str(Loop_timer))
+		Loop_frame_time = 0
+		
+#--------------------------------Loop---------------------------->>
+		if heart_sprite_num > 0:
+		
+			cusper_size_controller(cusper_size)
+			cusper_sprite_controller(cusper_sprite_num)
+			arrows_sprite_controller(arrows_sprite_num)
+
+#-----------------------------------------------------------------<<<
+		
+	Loop_frame_time += delta
+	
+#Cusper:
+func cusper_size_controller (size:float)->void:
+	cusper_size += cusper_size_add
+	cusper.cusper_size_change(cusper_size , cusper_size_add)
+	if cusper.height <= cusper_size_min: 
+		cusper_size_add = cusper_size_add*-1
+	elif cusper.height >= cusper_size_max: 
+		#Уменьшает размер в обратную сторону:
+#		cusper_size_add = cusper_size_add*-1
+		cusper_size = cusper_size_min
+		heart_sprite_num -=1
+		heart_sprite_controller(heart_sprite_num)
+#		api('out' , '-> top: ' + str(cusper_init_top) + ' | ' + '-> left: ' + str(cusper_init_left) )
+		cusper.cusper_init(cusper_size)
+		
+func cusper_sprite_controller (sprite:float)->void:
+	cusper.cusper_sprite_change(cusper_sprite_num)
+	
+func heart_sprite_controller (sprite:int)->void:
+	heart.heart_sprite_change(heart_sprite_num)
+	
+func arrows_sprite_controller (sprite:int)->void:
+	arrows.arrows_sprite_change(arrows_sprite_num)
+	
+func arrows_sprite_vector_controller (sprite_vector:int)->void:
+	if direction == arrows_sprite_vector:
+		swipe_rand_range(arrows_sprite_vector)
+		account_text+=1
+		account_text_controller(str(account_text))
+		cusper_size = cusper_size_min
+		cusper.cusper_init(cusper_size)
+#		api('out' , 'direction: ' + str(direction))
+		#Уменьшить жизни от не верного нажатия
+#	else:
+#		heart_sprite_num -=1
+#		heart_sprite_controller(heart_sprite_num)
+	arrows.arrows_sprite_change_vector(arrows_sprite_vector)
+
+func account_text_controller (text)->void:
+	account.account_text_change(str(account_text))
+
+#Direction:	
+func joy_up_pressed(state: String) -> void:
+	if state == "1" && heart_sprite_num > 0:
+		direction = Direction.up
+		arrows_sprite_vector_controller(arrows_sprite_vector)
+		
+func joy_down_pressed(state: String) -> void:
+	if state == "1" && heart_sprite_num > 0:
+		direction = Direction.down
+		arrows_sprite_vector_controller(arrows_sprite_vector)
+		
+func joy_left_pressed(state: String) -> void:
+	if state == "1" && heart_sprite_num > 0:
+		direction = Direction.left
+		arrows_sprite_vector_controller(arrows_sprite_vector)
+		
+func joy_right_pressed(state: String) -> void:
+	if state == "1" && heart_sprite_num > 0:
+		direction = Direction.right
+		arrows_sprite_vector_controller(arrows_sprite_vector)
+		
+#Swipe:
+func swipe_rand_range(swipe_rand:int)->void:
+	arrows_sprite_vector =  int(rand_range(0,  4))
+	if arrows_sprite_vector == direction:
+		swipe_rand_range(arrows_sprite_vector)
+#	api('out' , 'arrows_sprite_vector: ' + str(arrows_sprite_vector))
+	
+

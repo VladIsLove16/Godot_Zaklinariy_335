@@ -1,0 +1,20 @@
+extends AROverlap
+
+#Connect:
+var account_sprite: ARImage
+var account_text: ARLabel
+
+#Config:
+var account_sprite_change_vector:int 
+var account_text_change
+
+func start() -> void:
+	account_sprite = get_ar_element("ARImage")
+	account_text		= get_ar_element("ARLabel")
+		
+func account_sprite_change (account_sprite_change_vector:int) -> void:
+	account_sprite.frame_coord.x +=1
+	account_sprite.frame_coord.y = int(account_sprite_change_vector)
+	
+func account_text_change (account_text_change) -> void:
+	account_text.text = str(account_text_change)
