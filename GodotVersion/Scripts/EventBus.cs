@@ -13,14 +13,16 @@ public class EventBus : Node
 	//убит(+балл)
 	//private event Action On_Ghost_Died;
 	private event Action On_PlayerRight;
-	//не убит(-жизнь)
+	//не убит(-жизнь) и колво жизней
 	private event Action On_PlayerMistake;
-
+	//очки
+	private event Action On_ScoreChanged;
+	//жизни
+	private event Action OnPlayerHealthChanged;
+	//остаток жизней
 	//private event Action On_Ghost_Reached_Character;
 
 	//НЕ ПЕРЕДАЮТСЯ В ARE
-	//
-	private event Action On_ScoreChanged;
 	//
 	private event Action On_Character_Died;
 	//начало игры
@@ -77,6 +79,22 @@ public class EventBus : Node
 	}
 
 
+	public void RaiseOnPlayerHealthChanged(int healthLeft)
+	{
+		OnPlayerHealthChanged?.Invoke();
+		SendMessage("health", healthLeft.ToString());
+
+	}
+	public void SubscribeOnPlayerHealthChanged(Action action)
+	{
+		OnPlayerHealthChanged += action;
+	}
+	public void UnSubscribeOnPlayerHealthChanged(Action action)
+	{
+		OnPlayerHealthChanged -= action;
+	}
+
+
 	public void RaiseOn_Ghost_CanBeKilled()
 	{
 		On_Ghost_CanBeKilled?.Invoke();
@@ -94,7 +112,6 @@ public class EventBus : Node
 	public void RaiseOn_PlayerMistake()
 	{
 		On_PlayerMistake?.Invoke();
-		
 		SendMessage("input", "wrong");
 	}
 	public void SubscribeOn_PlayerMistake(Action action)

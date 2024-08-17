@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Themes/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Themes/new_dynamicfont.tres" type="DynamicFont" id=2]
 [ext_resource path="res://Themes/ExitBtn.tres" type="DynamicFont" id=3]
 [ext_resource path="res://Scripts/MainMenu.cs" type="Script" id=4]
+[ext_resource path="res://Scripts/Buttons/Exitbtn.cs" type="Script" id=5]
+[ext_resource path="res://Scripts/Buttons/PlayBtn.cs" type="Script" id=6]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -20,6 +22,7 @@ theme = ExtResource( 1 )
 custom_colors/font_color = Color( 0.141176, 1, 0, 1 )
 custom_fonts/font = ExtResource( 3 )
 text = "ВЫХОД"
+script = ExtResource( 5 )
 
 [node name="Play" type="Button" parent="."]
 margin_left = 690.0
@@ -28,6 +31,7 @@ margin_right = 1230.0
 margin_bottom = 632.0
 custom_fonts/font = ExtResource( 2 )
 text = "играть"
+script = ExtResource( 6 )
 
 [node name="GameNameText" type="Label" parent="."]
 margin_top = 256.0
@@ -38,5 +42,5 @@ custom_fonts/font = ExtResource( 2 )
 text = "заклинарий"
 uppercase = true
 
-[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
+[connection signal="pressed" from="Exit" to="Exit" method="_on_Exit_pressed"]
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]

@@ -31,11 +31,11 @@ public partial class UI : Control
 		ScoreManager = GetNode<ScoreManager>("../ScoreManager");
 
 		// Подписка на события
-		Character.OnGetDamage += Character_OnGetDamage;
 		EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
 		EventBus.Instance.SubscribeOn_ScoreChanged(UpdateScoreText);
+		EventBus.Instance.SubscribeOnPlayerHealthChanged(PlayerHealthChanged);
 		// Инициализация начальных значений
-		Character_OnGetDamage();
+		PlayerHealthChanged();
 		HideAllIcons();
 	}
 	public void UpdateScoreText()
@@ -108,7 +108,7 @@ public partial class UI : Control
 		UDiedText.Visible = true;
 	}
 
-	private void Character_OnGetDamage()
+	private void PlayerHealthChanged()
 	{
 		HealthText.Text = Character.GetHealth().ToString();
 	}

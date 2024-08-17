@@ -17,8 +17,11 @@ public partial class SwipeInput : Node
     }
     public override void _Process(float delta)
     {
-        OnMouseInput();
-        OnTouchInput();
+        if (!GamePause.IsGamePaused)
+        {
+            OnMouseInput();
+            OnTouchInput();
+        }
         //OnKeyBoardInput();
     }
 
@@ -29,13 +32,13 @@ public partial class SwipeInput : Node
             switch ((KeyList)keyEvent.Scancode)
             {
                 case KeyList.O:
-                    OnSwipe(new SwipeArgs(SwipeType.upper));
-                    break;
-                case KeyList.L:
                     OnSwipe(new SwipeArgs(SwipeType.down));
                     break;
-                case KeyList.Y:
+                case KeyList.L:
                     OnSwipe(new SwipeArgs(SwipeType.right));
+                    break;
+                case KeyList.Y:
+                    OnSwipe(new SwipeArgs(SwipeType.upper));
                     break;
                 case KeyList.A:
                     OnSwipe(new SwipeArgs(SwipeType.left));

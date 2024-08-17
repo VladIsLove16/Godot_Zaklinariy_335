@@ -5,7 +5,6 @@ public partial class Character : Spatial
 {
 	[Export]
 	public int Health;
-	public event Action OnGetDamage;
 	[Export]
 	public bool candie=false;
 	public override void _Ready()
@@ -15,7 +14,7 @@ public partial class Character : Spatial
 	public void GetDamage()
 	{
 		Health--;
-		OnGetDamage.Invoke();
+		EventBus.Instance.RaiseOnPlayerHealthChanged(Health);
 		if (Health < 0)
 			Die();
 	}

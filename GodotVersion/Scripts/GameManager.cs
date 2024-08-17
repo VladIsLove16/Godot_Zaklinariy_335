@@ -15,12 +15,6 @@ public class GameManager : Spatial
 
 		SwipeInput.OnSwipe += SwipeInput_OnSwipe;
 		EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
-		EventBus.Instance.SubscribeOn_PlayerMistake(CharacterGetDamage);
-
-	}
-	private void CharacterGetDamage()
-	{
-		Character.GetDamage();
 	}
 	private void Character_OnDie()
 	{
