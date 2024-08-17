@@ -19,7 +19,45 @@ public partial class SwipeInput : Node
     {
         OnMouseInput();
         OnTouchInput();
+        //OnKeyBoardInput();
     }
+
+    public override void _Input(InputEvent inputEvent)
+    {
+        if (inputEvent is InputEventKey keyEvent && keyEvent.Pressed)
+        {
+            switch ((KeyList)keyEvent.Scancode)
+            {
+                case KeyList.O:
+                    OnSwipe(new SwipeArgs(SwipeType.upper));
+                    break;
+                case KeyList.L:
+                    OnSwipe(new SwipeArgs(SwipeType.down));
+                    break;
+                case KeyList.Y:
+                    OnSwipe(new SwipeArgs(SwipeType.right));
+                    break;
+                case KeyList.A:
+                    OnSwipe(new SwipeArgs(SwipeType.left));
+                    break;
+
+
+                case KeyList.W:
+                    OnSwipe(new SwipeArgs(SwipeType.upper));
+                    break;
+                case KeyList.S:
+                    OnSwipe(new SwipeArgs(SwipeType.down));
+                    break;
+                case KeyList.D:
+                    OnSwipe(new SwipeArgs(SwipeType.right));
+                    break;
+                //case KeyList.A:
+                //    OnSwipe(new SwipeArgs(SwipeType.left));
+                //    break;
+            }
+        }
+    }
+
     private void OnTouchInput()
     {
        
@@ -38,48 +76,45 @@ public partial class SwipeInput : Node
             endTouchPosition = GetViewport().GetMousePosition();
             MouseButtonUpWaitingFlag = false;
             MouseButtonDownWaitingFlag = true;
-            if (endTouchPosition.x > startTouchPosition.x)
-            {
-                OnRightSwipe();
-            }
-            if (endTouchPosition.x < startTouchPosition.x)
-            {
-                OnLeftSwipe();
-            }
-        }
-    }
 
-    private void OnRightSwipe()
-    {
-        OnSwipe.Invoke(new SwipeArgs(SwipeType.right));
-    }
-    private void OnLeftSwipe()
-    {
-        OnSwipe.Invoke(new SwipeArgs(SwipeType.left));
-
-    }
-    public class SwipeArgs
-    {
-        public SwipeType swipeType;
-        public SwipeArgs(SwipeType swipeType)
-        {
-            this.swipeType = swipeType;
+            SwipeType swipetype = GetSwipeType(startTouchPosition, endTouchPosition);
+            OnSwipe.Invoke(new SwipeArgs(swipetype));
         }
-        public bool IsLeftSwipe()
+    }
+    private SwipeType GetSwipeType(Vector2 startTouchPosition,Vector2 endTouchPosition)
+    {
+        SwipeType swipeType;
+        Vector2 dif = startTouchPosition - endTouchPosition;
+        if(Mathf.Abs(dif.x) > Mathf.Abs(dif.y))
         {
-            return swipeType == SwipeType.left;
+            if(dif.x < 0)
+            {
+                swipeType = SwipeType.left;
+            }
+            else
+            {
+                swipeType = SwipeType.right;
+            }
         }
+        else
+        {
+            if (dif.y < 0)
+            {
+                swipeType = SwipeType.upper;
+            }
+            else
+            {
+                swipeType = SwipeType.down;
+            }
+        }
+        return swipeType;
     }
     public enum SwipeType
     {
         left = 0,
         right = 1,
-        upper,
-        down
+        upper = 2,
+        down = 3
     }
     
-}
-public class InputSystem
-{
-
 }

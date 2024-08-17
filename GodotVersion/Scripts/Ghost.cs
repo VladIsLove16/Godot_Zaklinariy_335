@@ -12,8 +12,7 @@ public partial class Ghost : Sprite3D
 
 	public override void _Process(float delta)
 	{
-		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, (speed) * (float)delta));
-
+		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, speed * delta));
 		EventBus.instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.z, 0);
 
 		ChangeSpeed(delta);
@@ -38,15 +37,17 @@ public partial class Ghost : Sprite3D
 		if(GlobalTransform.origin.DistanceTo(target) < 1f )
 		{
 			EventBus.instance.RaiseOn_Ghost_Reached_Character();
-			Die();
+			QueueFree();
 		}
 	}
 
-	public void Construct(SwipeType SwipeType, Vector3 where, Vector3 target)
+	public void Construct(SwipeType SwipeType, Vector3 where, Vector3 target,float speed = 1f)
 	{
 		SetSwipeType(SwipeType);
 		SetTarget(target);
 		GlobalTransform = new Transform(Quat.Identity, where);
+		this.speed = speed;
+
 	}
 	public void SetSwipeType(SwipeType SwipeType)
 	{

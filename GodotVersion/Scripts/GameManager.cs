@@ -37,12 +37,13 @@ public class GameManager : Spatial
 		}
 		if (swipeArgs.swipeType == ghost.SwipeType && ghost.CanBeKilled())
 		{
+			EventBus.instance.RaiseOn_RightInput();
 			ghost.Die();
 		}
 		else
 		{
-			CharacterGetDamage();
-
+			GD.Print("wronginput");
+			EventBus.instance.RaiseOn_WrongInput();
 		}
 	}
 	public void RestartGame()

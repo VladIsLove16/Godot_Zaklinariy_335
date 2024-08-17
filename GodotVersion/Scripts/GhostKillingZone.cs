@@ -8,9 +8,7 @@ public class GhostKillingZone : Area
 		try
 		{
 			Node node = (Node)area;
-			GD.Print("node is exist");
 			Ghost ghost = (Ghost)node.GetParent();
-			GD.Print("Area is ghost");
 			ghost.SetCanBeKilled(true);
 		}
 		catch(Exception e)

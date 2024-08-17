@@ -8,7 +8,10 @@ public partial class Character : Spatial
 	public event Action OnGetDamage;
     [Export]
     public bool candie=false;
-
+    public override void _Ready()
+    {
+		EventBus.instance.SubscribeOn_WrongInput(GetDamage);
+    }
     public void GetDamage()
 	{
 		Health--;

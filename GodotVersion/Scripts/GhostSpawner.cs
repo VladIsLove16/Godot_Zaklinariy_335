@@ -4,12 +4,20 @@ using static SwipeInput;
 
 public partial class GhostSpawner : Spatial
 {
+	const int ROW = 0;
+	const int SWIPETYPES = 4;
+	const int bpm = 135;
+	const float bps = 135f / 60f;
+	//const float SPEED_CONST = 
 
-    [Export]
-    private float FirstSpawnDelay;
-    [Export]
 	private float spawnDelay;
+	private float GhostStartSpeed;
+	private float distanceToPlayer;
+
 	[Export]
+	private float FirstSpawnDelay;
+	[Export]
+	private int spawnDelayMultiplier;
 	private float untilSpawn;
 	[Export]
 	private PackedScene pfGhost;
@@ -18,15 +26,18 @@ public partial class GhostSpawner : Spatial
 	private bool CanSpawn=true;
 	[Export]
 	private bool SpawnOnAwake ;
-	[Export]
 	private Character character;
-	[Export]
 	private float ElapsedTime;
 	[Export]
-	private float StartSpeed;
+	private int StartSpeedMultiplier;
+
 	public override void _Ready()
 	{
-		
+		character =  GetNode<Character>("../Character");
+		distanceToPlayer = Mathf.Abs( character.GlobalTransform.origin.z - GlobalTransform.origin.z);
+        spawnDelay = spawnDelayMultiplier / bps;
+
+        GhostStartSpeed = Mathf.Abs( StartSpeedMultiplier * distanceToPlayer / spawnDelay);
 		EventBus.instance.SubscribeGhostDied(Ghost_OnDie);
 
 	}
@@ -38,18 +49,18 @@ public partial class GhostSpawner : Spatial
 				FirstSpawnDelay -= delta;
 			else
 			{
-                Spawn();
-                SpawnOnAwake = false;
-            }
+				Spawn();
+				SpawnOnAwake = false;
+			}
 			
 		}
 		if (CanSpawn)
 		{
-            ElapsedTime += delta;
+			ElapsedTime += delta;
 			if (SpawnByTime)
 			{
-				untilSpawn -= delta;
-				if (untilSpawn < 0 && FirstSpawnDelay<0)
+                untilSpawn -= delta;
+				if (untilSpawn < 0 && FirstSpawnDelay<=0)
 				{
 					Spawn();
 					untilSpawn = spawnDelay;
@@ -74,15 +85,14 @@ public partial class GhostSpawner : Spatial
 			{
 				Ghost ghost = (Ghost)pfGhost.Instance(); //Mob mob = (Mob)MobScene.Instance();
 			   
-				SwipeType swipeType = (SwipeType)(GD.Randi() % 2);
+				SwipeType swipeType = (SwipeType)(GD.Randi() % SWIPETYPES);
 				Godot.Vector3 playerPosition =
 					//GetViewport().GetCamera().GlobalTransform.origin;
-					GetNode<Character>("../Character").Transform.origin;
+					character.GlobalTransform.origin;
 
-				ghost.speed = StartSpeed;
-                ghost.Construct(swipeType, GlobalTransform.origin, playerPosition);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
+				ghost.Construct(swipeType, GlobalTransform.origin, playerPosition, GhostStartSpeed);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
 
-                EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, 0,swipeType.ToString());
+				EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, ROW, swipeType.ToString());
 
 				AddChild(ghost);
 			}

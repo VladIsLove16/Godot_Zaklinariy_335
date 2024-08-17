@@ -13,6 +13,9 @@ public class EventBus : Node
 
 	public event Action On_Character_Died;
 
+	public event Action On_WrongInput;
+	public event Action On_RightInput;
+
 
 	public Node node;
 	public static EventBus instance;
@@ -60,6 +63,35 @@ public class EventBus : Node
 	public void UnSubscribeOn_Ghost_Position_Changed(Action action)
 	{
 		On_Ghost_Position_Changed -= action;
+	}
+
+	public void RaiseOn_WrongInput()
+	{
+		On_WrongInput?.Invoke();
+		
+		SendMessage("input", "wrong");
+	}
+	public void SubscribeOn_WrongInput(Action action)
+	{
+		On_WrongInput += action;
+	}
+	public void UnSubscribeOn_WrongInputd(Action action)
+	{
+		On_WrongInput -= action;
+	}
+
+	public void RaiseOn_RightInput()
+	{
+		On_RightInput?.Invoke();
+		SendMessage("input", "right");
+	}
+	public void SubscribeOn_RightInput(Action action)
+	{
+		On_RightInput += action;
+	}
+	public void UnSubscribeOn_RightInput(Action action)
+	{
+		On_RightInput -= action;
 	}
 
 

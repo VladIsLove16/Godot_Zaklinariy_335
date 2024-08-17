@@ -10,6 +10,8 @@ public partial class UI : CanvasLayer
 
 	[Export] private Sprite LeftSwipeIcon;
 	[Export] private Sprite RightSwipeIcon;
+	[Export] private Sprite UpperSwipeIcon;
+	[Export] private Sprite DownSwipeIcon;
 
 	[Export] private GhostSpawner GhostSpawner;
 	[Export] private Character Character;
@@ -18,10 +20,13 @@ public partial class UI : CanvasLayer
 	{
 		LeftSwipeIcon = GetChild<Sprite>(0);
 		RightSwipeIcon = GetChild<Sprite>(1);
-		Score = GetChild<Label>(2);
-		HealthText = GetChild<Label>(3);
-		UDiedText = GetChild<Label>(4);
-		RestartBtn = GetChild<Button>(5);
+		UpperSwipeIcon = GetChild<Sprite>(2);
+		DownSwipeIcon = GetChild<Sprite>(3);
+
+		Score = GetChild<Label>(4);
+		HealthText = GetChild<Label>(5);
+		UDiedText = GetChild<Label>(6);
+		RestartBtn = GetChild<Button>(7);
 
 		GhostSpawner = GetNode<GhostSpawner>("../GhostSpawner");
 		Character = GetNode<Character>("../Character");
@@ -72,10 +77,23 @@ public partial class UI : CanvasLayer
 			LeftSwipeIcon.Visible = true;
 			LeftSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
 		}
+
 		else if (swipeType == SwipeInput.SwipeType.right)
 		{
 			RightSwipeIcon.Visible = true;
 			RightSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
+		}
+
+		if (swipeType == SwipeInput.SwipeType.upper)
+		{
+			UpperSwipeIcon.Visible = true;
+			UpperSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
+		}
+
+		else if (swipeType == SwipeInput.SwipeType.down)
+		{
+			DownSwipeIcon.Visible = true;
+			DownSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
 		}
 	}
 
@@ -83,6 +101,8 @@ public partial class UI : CanvasLayer
 	{
 		LeftSwipeIcon.Visible = false;
 		RightSwipeIcon.Visible = false;
+		UpperSwipeIcon.Visible = false;
+		DownSwipeIcon.Visible = false;
 	}
 
 	private void Character_OnDie()
