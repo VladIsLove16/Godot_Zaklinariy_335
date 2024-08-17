@@ -4,12 +4,20 @@ extends AROverlap
 var arrows_sprite: ARImage
 
 #Config:
-var arrows_sprite_change_vector: int 
+var arrows_init_top:float		=	3000
+var arrows_init_left:float		=	3000
 
 func start() -> void:
 	arrows_sprite = get_ar_element("ARImage")
 		
-func arrows_sprite_change (sprite:int) -> void:
+func arrows_position_set(arrows_position_set_top:float, arrows_position_set_left:float)->void:
+	self.top 	=arrows_position_set_top
+	self.left	=arrows_position_set_left
+	
+func arrows_init()->void:
+	arrows_position_set(arrows_init_top, arrows_init_left)
+
+func arrows_sprite_change () -> void:
 	arrows_sprite.frame_coord.x +=1
 	
 func arrows_sprite_change_vector (arrows_sprite_change_vector:int) -> void:

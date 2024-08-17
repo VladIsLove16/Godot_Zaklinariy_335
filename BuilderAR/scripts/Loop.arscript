@@ -5,24 +5,28 @@ var cusper:AROverlap
 var heart:AROverlap
 var arrows:AROverlap
 var account:AROverlap
+var background:AROverlap
 
 #Loop control:
 var Loop_frame_time: float 		= 0
 var Loop_timer: float					= 0
-var Loop_fps: float 						= 16
+var Loop_fps: float 						= 14
 
 #Config:
 var max_Overlap_h 						= 840
 var max_Overlap_w 					= 1820 
 
 #Cusper:
-var cusper_size:float 					= 128
-var cusper_size_add:float			= 30
+var cusper_size:float 					= 100
+var cusper_size_add:float
+var cusper_level:int						= 64
 var cusper_size_max:float			= 800
 var cusper_size_min:float			= 100
 var cusper_sprite_num				= 0
 var cusper_init_top:float				= 450
 var cusper_init_left:float				= 1000
+var cusper_num:int						= 0
+var cusper_heart:int					= 300
 
 #Heart:
 var heart_sprite_num:int				= 3
@@ -32,23 +36,34 @@ var account_text:int=0
 
 #Swipe:
 enum Direction{
-	up,
-	down,
 	left,
-	right
+	right,
+	down,
+	up
 }
-var direction = Direction.down
+var direction = Direction.left
 var swipe_rand:int
 
 #Arrows:
 var arrows_sprite_vector:int
 var arrows_sprite_num:int
+var arrows_top:float					= 360
+var arrows_left:float					= 300
+
+#Background:
+var background_sprite_timer:int
+var background_sprite_flag		= 0
+
+#Message:
+var message_input
 
 func start() -> void:
-	cusper 	=get_ar_element("./Cusper")
-	heart		=get_ar_element("./Heart")
-	arrows	=get_ar_element("./Arrows")
-	account 	=get_ar_element("./Account")
+	cusper 			=get_ar_element("./Cusper")
+	heart				=get_ar_element("./Heart")
+	arrows			=get_ar_element("./Arrows")
+	account		 	=get_ar_element("./Account")
+	background	=get_ar_element("../Background")
+	
 #		cusper_sprite = get_ar_element("./Cusper/ARImage")
 	api("connect_to_swp_app", {
 		"target_node" : self,
@@ -71,14 +86,52 @@ func update_process(delta: float) -> void:
 		
 #--------------------------------Loop---------------------------->>
 		if heart_sprite_num > 0:
-		
+			#Добавляет скорость игры:
+#			cusper_size_add = float(cusper_level + int(Loop_timer / 2))
+			cusper_size_add = float(cusper_level)	#<- Передаем параметры увеличения
+#			api('out' , 'Loop_timer: ' + str(Loop_timer) + ' | ' + 'cusper_size_add: ' + str(cusper_size_add))
+
+			#Анимация:
+			cusper_sprite_controller()
+			arrows_sprite_controller()
+			cusper_direction_controller(arrows_sprite_vector)
+			background_color_init()
+			
+			if background_sprite_flag > 0:
+				background_sprite_timer+=1
+				background_sprite_change ()
+				if background_sprite_timer >= 4:
+					background_sprite_flag 		= 0
+					background_sprite_timer	= 0
+			else:
+				background_sprite_init ()
+			
+			#Призрак:
 			cusper_size_controller(cusper_size)
-			cusper_sprite_controller(cusper_sprite_num)
-			arrows_sprite_controller(arrows_sprite_num)
+			
+			#Показываем стрелки, в определенный промежуток времени:
+			#if cusper_size >= cusper_size_max/2:
+			#	arrows_set(arrows_top , arrows_left)				
 
 #-----------------------------------------------------------------<<<
 		
 	Loop_frame_time += delta
+	
+#Background:
+func background_color_init ()->void:
+	background.background_color_init()
+
+func background_color_loser ()->void:
+	background.background_color_loser()
+	
+func background_color_win ()->void:
+	background.background_color_win()
+
+func background_sprite_init ()->void:
+	background.background_sprite_init()
+	
+func background_sprite_change ()->void:
+	background.background_sprite_change()
 	
 #Cusper:
 func cusper_size_controller (size:float)->void:
@@ -90,57 +143,79 @@ func cusper_size_controller (size:float)->void:
 		#Уменьшает размер в обратную сторону:
 #		cusper_size_add = cusper_size_add*-1
 		cusper_size = cusper_size_min
-		heart_sprite_num -=1
+#	heart_sprite_num -=1
 		heart_sprite_controller(heart_sprite_num)
+#	background_sprite_flag =1
 #		api('out' , '-> top: ' + str(cusper_init_top) + ' | ' + '-> left: ' + str(cusper_init_left) )
 		cusper.cusper_init(cusper_size)
 		
-func cusper_sprite_controller (sprite:float)->void:
-	cusper.cusper_sprite_change(cusper_sprite_num)
+func cusper_sprite_controller ()->void:
+	cusper.cusper_sprite_change()
+
+func cusper_direction_controller (cusper_direction_controller:int)->void:
+	cusper.cusper_direction_change(cusper_direction_controller)
 	
-func heart_sprite_controller (sprite:int)->void:
-	heart.heart_sprite_change(heart_sprite_num)
+#----------------------------------------------------------------------------
+#Arrows:
+func arrows_sprite_controller ()->void:
+	arrows.arrows_sprite_change()
+
+func arrows_delet()->void:
+	arrows.arrows_init()
 	
-func arrows_sprite_controller (sprite:int)->void:
-	arrows.arrows_sprite_change(arrows_sprite_num)
+func arrows_set(arrows_set_top:float, arrows_set_left)->void:
+	arrows.arrows_position_set(float(arrows_set_top),float(arrows_set_left))
 	
 func arrows_sprite_vector_controller (sprite_vector:int)->void:
 	if direction == arrows_sprite_vector:
+#		background_color_win ()
 		swipe_rand_range(arrows_sprite_vector)
 		account_text+=1
 		account_text_controller(str(account_text))
 		cusper_size = cusper_size_min
 		cusper.cusper_init(cusper_size)
+		arrows_delet()
 #		api('out' , 'direction: ' + str(direction))
 		#Уменьшить жизни от не верного нажатия
-#	else:
+	else:
+			background_color_loser ()
 #		heart_sprite_num -=1
 #		heart_sprite_controller(heart_sprite_num)
 	arrows.arrows_sprite_change_vector(arrows_sprite_vector)
+#----------------------------------------------------------------------------
+
+func heart_sprite_controller (sprite:int)->void:
+	heart.heart_sprite_change(heart_sprite_num)
+
+#---------------------Счет---------------------->>>
 
 func account_text_controller (text)->void:
 	account.account_text_change(str(account_text))
+
+#------------------------------------------------<<<
+
+#---------------------Контроллер--------------->>>
 
 #Direction:	
 func joy_up_pressed(state: String) -> void:
 	if state == "1" && heart_sprite_num > 0:
 		direction = Direction.up
-		arrows_sprite_vector_controller(arrows_sprite_vector)
+		#arrows_sprite_vector_controller(arrows_sprite_vector)
 		
 func joy_down_pressed(state: String) -> void:
 	if state == "1" && heart_sprite_num > 0:
 		direction = Direction.down
-		arrows_sprite_vector_controller(arrows_sprite_vector)
+		#arrows_sprite_vector_controller(arrows_sprite_vector)
 		
 func joy_left_pressed(state: String) -> void:
 	if state == "1" && heart_sprite_num > 0:
 		direction = Direction.left
-		arrows_sprite_vector_controller(arrows_sprite_vector)
+		#arrows_sprite_vector_controller(arrows_sprite_vector)
 		
 func joy_right_pressed(state: String) -> void:
 	if state == "1" && heart_sprite_num > 0:
 		direction = Direction.right
-		arrows_sprite_vector_controller(arrows_sprite_vector)
+		#arrows_sprite_vector_controller(arrows_sprite_vector)
 		
 #Swipe:
 func swipe_rand_range(swipe_rand:int)->void:
@@ -149,4 +224,69 @@ func swipe_rand_range(swipe_rand:int)->void:
 		swipe_rand_range(arrows_sprite_vector)
 #	api('out' , 'arrows_sprite_vector: ' + str(arrows_sprite_vector))
 	
+#------------------------------------------------<<<
 
+#--------------------------------------msg---------------------------------
+
+func on_message(message):
+	message_input = message
+	event_message_input(message_input)
+	#: {"arg1":"position","arg2":"-0,09885311","arg3":"0","arg4":"","type":"ghost"}
+
+func event_message_input(event_message_input)->void:
+	if event_message_input.arg1 == 'spawn':
+		api('out' , 'message: spawn')
+		#Создаем призарка:
+		if cusper_num < 0:
+			cusper_size = cusper_size_min
+			cusper.cusper_init(cusper_size)
+			cusper_num+=1		
+		elif 	cusper_num >= 10:
+			cusper_num = 0
+		
+		#Управляем направлением
+		if event_message_input.arg4 == 'upper':
+			arrows_sprite_vector = Direction.up
+		elif event_message_input.arg4 == 'down':
+			arrows_sprite_vector = Direction.down
+		elif event_message_input.arg4 == 'right':
+			arrows_sprite_vector = Direction.right			
+		elif event_message_input.arg4 == 'left':
+			arrows_sprite_vector = Direction.left
+		
+		arrows.arrows_sprite_change_vector(arrows_sprite_vector)
+		
+		#arrows_delet()
+			
+		api('out' , 'set direction: ' + str(arrows_sprite_vector))
+						
+	elif event_message_input.arg1 == 'died': 
+		api('out' , 'message: died')
+		arrows_delet()
+		#Игрок умер
+	elif event_message_input.arg1 == 'right': 
+		api('out' , 'message: right')
+		arrows_delet()
+		account_text+=1
+		account_text_controller(str(account_text))
+		#Игрок попал
+	elif event_message_input.arg1 == 'wrong': 
+		api('out' , 'message: wrong')
+		arrows_delet()
+		background_color_loser ()
+		background_sprite_flag=1
+		#Игрок промахнулся 
+		cusper_heart-=1
+		heart_sprite_num=int(cusper_heart/100)
+	elif event_message_input.arg1 == 'CanBeKilled': 
+		api('out' , 'message: CanBeKilled')
+		#Можно убить призрака
+		arrows_set(arrows_top , arrows_left)
+		if cusper_num >= 1:
+			cusper_num=0
+#			cusper_size = cusper_size_min
+#			cusper.cusper_init(cusper_size)
+		else:
+			cusper_num+=1
+		
+#--------------------------------------------------------------------------
