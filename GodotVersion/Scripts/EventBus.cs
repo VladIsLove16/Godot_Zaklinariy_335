@@ -3,36 +3,36 @@ using System;
 
 public class EventBus : Node
 {
-	//ПЕРЕДАЮТСЯ В ARE
-    //создан+направление
-    private event Action On_Ghost_Spawn;
-	//можно убить
+	//РџР•Р Р•Р”РђР®РўРЎРЇ Р’ ARE
+	//СЃРѕР·РґР°РЅ+РЅР°РїСЂР°РІР»РµРЅРёРµ СЃРІР°Р№РїР°
+	private event Action On_Ghost_Spawn;
+	//РјРѕР¶РЅРѕ СѓР±РёС‚СЊ
 	private event Action On_Ghost_CanBeKilled;
-	//позиция
+	//РїРѕР·РёС†РёСЏ
 	private event Action On_Ghost_Position_Changed;
-	//убит(+балл)
-    //private event Action On_Ghost_Died;
-    private event Action On_PlayerRight;
-    //не убит(-жизнь)
-    private event Action On_PlayerMistake;
+	//СѓР±РёС‚(+Р±Р°Р»Р»)
+	//private event Action On_Ghost_Died;
+	private event Action On_PlayerRight;
+	//РЅРµ СѓР±РёС‚(-Р¶РёР·РЅСЊ)
+	private event Action On_PlayerMistake;
 
-    //private event Action On_Ghost_Reached_Character;
+	//private event Action On_Ghost_Reached_Character;
 
-    //НЕ ПЕРЕДАЮТСЯ В ARE
-    //
-    private event Action On_ScoreChanged;
+	//РќР• РџР•Р Р•Р”РђР®РўРЎРЇ Р’ ARE
+	//
+	private event Action On_ScoreChanged;
 	//
 	private event Action On_Character_Died;
-    //начало игры
-    //private event Action StartedHealth;
+	//РЅР°С‡Р°Р»Рѕ РёРіСЂС‹
+	//private event Action StartedHealth;
 
 
 
 	private Node node;
-	public static EventBus instance;
+	public static EventBus Instance;
 	public override void _Ready()
 	{
-		instance = this;
+		Instance = this;
 		node = GetNode("../main");
 
 	}
@@ -97,11 +97,11 @@ public class EventBus : Node
 		
 		SendMessage("input", "wrong");
 	}
-	public void SubscribeOn_WrongInput(Action action)
+	public void SubscribeOn_PlayerMistake(Action action)
 	{
 		On_PlayerMistake += action;
 	}
-	public void UnSubscribeOn_WrongInputd(Action action)
+	public void UnSubscribeOn_PlayerMistake(Action action)
 	{
 		On_PlayerMistake -= action;
 	}
@@ -111,11 +111,11 @@ public class EventBus : Node
 		On_PlayerRight?.Invoke();
 		SendMessage("input", "right");
 	}
-	public void SubscribeOn_RightInput(Action action)
+	public void SubscribeOn_PlayerRight(Action action)
 	{
 		On_PlayerRight += action;
 	}
-	public void UnSubscribeOn_RightInput(Action action)
+	public void UnSubscribeOn_PlayerRight(Action action)
 	{
 		On_PlayerRight -= action;
 	}
@@ -134,7 +134,7 @@ public class EventBus : Node
 	{
 		On_ScoreChanged -= action;
 	}
-	
+
 
 
 	public void RaiseOn_Character_Died()

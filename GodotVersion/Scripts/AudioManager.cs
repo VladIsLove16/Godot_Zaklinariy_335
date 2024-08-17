@@ -10,42 +10,47 @@ public partial class AudioManager : AudioStreamPlayer
 	}
 
 	public static AudioManager Instance { get; private set; }
-
-	private AudioStream GhostDie;
-	private AudioStream PlayerDie;
-	private AudioStreamPlayer audioPlayer;
+	[Export]
+	public AudioStream GhostDie;
+    [Export]
+    public AudioStream PlayerDie;
 
 	public AudioManager()
 	{
 		Instance = this;
 		// Загрузка аудиофайлов
-		GhostDie = (AudioStream)GD.Load("res://Sounds/GhostDied.mp3");
+		//GhostDie = (AudioStream)GD.Load("res://Sounds/GhostDied.mp3");
+		EventBus.Instance.SubscribeOn_PlayerRight(OnPlayerRight);
 		PlayerDie = (AudioStream)GD.Load("res://Sounds/CharacterDied.mp3");
 		// Инициализация AudioStreamPlayer
-		audioPlayer = new AudioStreamPlayer();
 		Debug.WriteLine("AudioManager created");
-	}
 
+	}
+	private void OnPlayerRight()
+	{
+		Stream = GhostDie;
+		Play();
+
+    }
 	public void Initialize(Node parent)
 	{
 		// Добавление AudioStreamPlayer в иерархию сцены
-		parent.AddChild(audioPlayer);
 	}
 
-	public void PlaySound(SoundType soundType)
-	{
-		Debug.WriteLine("AudioManager playing" + soundType.ToString());
-		switch (soundType)
-		{
-			case SoundType.GhostDie:
-				audioPlayer.Stream = GhostDie;
-				break;
-			case SoundType.PlayerDie:
-				audioPlayer.Stream = PlayerDie;
-				break;
-		}
-		audioPlayer.Play();
-	}
+	//public void PlaySound(SoundType soundType)
+	//{
+	//	Debug.WriteLine("AudioManager playing" + soundType.ToString());
+	//	switch (soundType)
+	//	{
+	//		case SoundType.GhostDie:
+	//			audioPlayer.Stream = GhostDie;
+	//			break;
+	//		case SoundType.PlayerDie:
+	//			audioPlayer.Stream = PlayerDie;
+	//			break;
+	//	}
+	//	audioPlayer.Play();
+	//}
 	public void _OnReady()
 	{
 

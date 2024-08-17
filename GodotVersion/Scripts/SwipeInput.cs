@@ -77,14 +77,24 @@ public partial class SwipeInput : Node
             MouseButtonUpWaitingFlag = false;
             MouseButtonDownWaitingFlag = true;
 
-            SwipeType swipetype = GetSwipeType(startTouchPosition, endTouchPosition);
-            OnSwipe.Invoke(new SwipeArgs(swipetype));
+
+            Vector2 dif = startTouchPosition - endTouchPosition;
+            if (dif.Length() < 10f)
+                return;
+            else
+            {
+                SwipeType swipetype = GetSwipeType(startTouchPosition, endTouchPosition);
+                OnSwipe.Invoke(new SwipeArgs(swipetype));
+            }
         }
+           
     }
     private SwipeType GetSwipeType(Vector2 startTouchPosition,Vector2 endTouchPosition)
     {
+        
         SwipeType swipeType;
         Vector2 dif = startTouchPosition - endTouchPosition;
+       
         if(Mathf.Abs(dif.x) > Mathf.Abs(dif.y))
         {
             if(dif.x < 0)

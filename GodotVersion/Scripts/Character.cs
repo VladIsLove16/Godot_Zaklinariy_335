@@ -6,13 +6,13 @@ public partial class Character : Spatial
 	[Export]
 	public int Health;
 	public event Action OnGetDamage;
-    [Export]
-    public bool candie=false;
-    public override void _Ready()
-    {
-		EventBus.instance.SubscribeOn_WrongInput(GetDamage);
-    }
-    public void GetDamage()
+	[Export]
+	public bool candie=false;
+	public override void _Ready()
+	{
+		EventBus.Instance.SubscribeOn_PlayerMistake(GetDamage);
+	}
+	public void GetDamage()
 	{
 		Health--;
 		OnGetDamage.Invoke();
@@ -28,8 +28,8 @@ public partial class Character : Spatial
 		if(candie)
 		{
 
-            EventBus.instance.RaiseOn_Character_Died();
-            AudioManager.Instance.PlaySound(AudioManager.SoundType.PlayerDie);
-        }
+			EventBus.Instance.RaiseOn_Character_Died();
+			AudioManager.Instance.PlaySound(AudioManager.SoundType.PlayerDie);
+		}
 	}
 }

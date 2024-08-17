@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://Scripts/UI.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=2]
@@ -11,7 +11,7 @@
 [ext_resource path="res://Scripts/Character.cs" type="Script" id=9]
 [ext_resource path="res://Scripts/Testing.cs" type="Script" id=10]
 [ext_resource path="res://application/main.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Scripts/EventBus.cs" type="Script" id=12]
+[ext_resource path="res://Scripts/Pausebtn.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/GhostKillingZone.cs" type="Script" id=13]
 [ext_resource path="res://Sounds/Aries_Beats_-_80s_Party.mp3" type="AudioStream" id=14]
 [ext_resource path="res://Sprites/Vector-1.png" type="Texture" id=15]
@@ -24,8 +24,10 @@
 [ext_resource path="res://Sprites/Vector 35.png" type="Texture" id=22]
 [ext_resource path="res://Sprites/Group 1585.png" type="Texture" id=23]
 [ext_resource path="res://Sprites/favorite.png" type="Texture" id=24]
-[ext_resource path="res://Scenes/Pausebtn.cs" type="Script" id=25]
+[ext_resource path="res://Scripts/EventBus.cs" type="Script" id=25]
 [ext_resource path="res://Themes/ScoreText.tres" type="DynamicFont" id=26]
+[ext_resource path="res://Sprites/pause_circle.png" type="Texture" id=27]
+[ext_resource path="res://Scripts/Restartbtn.cs" type="Script" id=28]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -78,7 +80,7 @@ tracks/1/keys = {
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99861, 0.171808, -4.77834 )
 
 [node name="EventBus" type="Node" parent="."]
-script = ExtResource( 12 )
+script = ExtResource( 25 )
 
 [node name="Character" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.7314 )
@@ -111,11 +113,10 @@ script = ExtResource( 7 )
 [node name="ScoreManager" type="Node" parent="."]
 script = ExtResource( 8 )
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 14 )
 volume_db = 5.205
 autoplay = true
-script = ExtResource( 3 )
 
 [node name="Sounds" type="AudioStreamPlayer" parent="."]
 volume_db = 5.205
@@ -195,45 +196,12 @@ margin_bottom = 400.0
 text = "U died
 "
 
-[node name="Restart" type="Button" parent="Control"]
-margin_left = 1504.0
-margin_top = 38.0
-margin_right = 1718.0
-margin_bottom = 99.0
-text = "Restart"
-
-[node name="Pause" type="Button" parent="Control"]
-margin_left = 3008.0
-margin_top = 76.0
-margin_right = 3222.0
-margin_bottom = 137.0
-text = "Restart"
-script = ExtResource( 25 )
-
-[node name="UI" type="Node" parent="Control"]
-
-[node name="Healths" type="HBoxContainer" parent="Control"]
-margin_left = 32.0
-margin_top = 32.0
-margin_right = 340.0
-margin_bottom = 132.0
-
-[node name="Health1" type="TextureRect" parent="Control/Healths"]
-margin_right = 100.0
-margin_bottom = 100.0
-texture = ExtResource( 24 )
-
-[node name="Health2" type="TextureRect" parent="Control/Healths"]
-margin_left = 104.0
-margin_right = 204.0
-margin_bottom = 100.0
-texture = ExtResource( 24 )
-
-[node name="Health3" type="TextureRect" parent="Control/Healths"]
-margin_left = 208.0
-margin_right = 308.0
-margin_bottom = 100.0
-texture = ExtResource( 24 )
+[node name="BackgroundElements" type="TextureRect" parent="Control"]
+margin_left = 841.0
+margin_top = 2.0
+margin_right = 1917.0
+margin_bottom = 952.0
+texture = ExtResource( 23 )
 
 [node name="WrongInput" type="TextureRect" parent="Control"]
 visible = false
@@ -270,17 +238,54 @@ texture = ExtResource( 21 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Control/WrongInput"]
 autoplay = "Новая анимация"
+reset_on_save = false
 anims/RESET = SubResource( 4 )
 "anims/Новая анимация" = SubResource( 3 )
 script = ExtResource( 18 )
 
-[node name="BackgroundElements" type="TextureRect" parent="."]
-margin_left = 841.0
-margin_top = 2.0
-margin_right = 1917.0
-margin_bottom = 952.0
-texture = ExtResource( 23 )
+[node name="Restart" type="Button" parent="Control"]
+margin_left = 1445.0
+margin_top = 35.0
+margin_right = 1659.0
+margin_bottom = 96.0
+text = "Restart"
+script = ExtResource( 28 )
+
+[node name="Pause" type="Button" parent="Control"]
+margin_left = 1790.0
+margin_top = 32.0
+margin_right = 1902.0
+margin_bottom = 138.0
+icon = ExtResource( 27 )
+script = ExtResource( 12 )
+
+[node name="UI" type="Node" parent="Control"]
+
+[node name="Healths" type="HBoxContainer" parent="Control"]
+visible = false
+margin_left = 32.0
+margin_top = 32.0
+margin_right = 340.0
+margin_bottom = 132.0
+
+[node name="Health1" type="TextureRect" parent="Control/Healths"]
+margin_right = 100.0
+margin_bottom = 100.0
+texture = ExtResource( 24 )
+
+[node name="Health2" type="TextureRect" parent="Control/Healths"]
+margin_left = 104.0
+margin_right = 204.0
+margin_bottom = 100.0
+texture = ExtResource( 24 )
+
+[node name="Health3" type="TextureRect" parent="Control/Healths"]
+margin_left = 208.0
+margin_right = 308.0
+margin_bottom = 100.0
+texture = ExtResource( 24 )
 
 [connection signal="area_entered" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_entered"]
 [connection signal="area_exited" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_exited"]
+[connection signal="pressed" from="Control/Restart" to="Control/Restart" method="_on_Restart_pressed"]
 [connection signal="pressed" from="Control/Pause" to="Control/Pause" method="_on_Pause_pressed"]

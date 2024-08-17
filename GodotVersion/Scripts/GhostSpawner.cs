@@ -38,7 +38,7 @@ public partial class GhostSpawner : Spatial
         spawnDelay = spawnDelayMultiplier / bps;
 
         GhostStartSpeed = Mathf.Abs( StartSpeedMultiplier * distanceToPlayer / spawnDelay);
-		EventBus.instance.SubscribeGhostDied(Ghost_OnDie);
+		EventBus.Instance.SubscribeOn_PlayerRight(Ghost_OnDie);
 
 	}
 	public override void _Process(float delta)
@@ -92,7 +92,7 @@ public partial class GhostSpawner : Spatial
 
 				ghost.Construct(swipeType, GlobalTransform.origin, playerPosition, GhostStartSpeed);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
 
-				EventBus.instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, ROW, swipeType.ToString());
+				EventBus.Instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, ROW, swipeType.ToString());
 
 				AddChild(ghost);
 			}

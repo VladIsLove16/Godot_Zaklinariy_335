@@ -1,12 +1,11 @@
 using Godot;
 using System;
 
-public partial class UI : CanvasLayer
+public partial class UI : Control
 {
 	[Export] private Label Score;
 	[Export] private Label HealthText;
 	[Export] private Label UDiedText;
-	private Button RestartBtn;
 
 	[Export] private Sprite LeftSwipeIcon;
 	[Export] private Sprite RightSwipeIcon;
@@ -26,7 +25,6 @@ public partial class UI : CanvasLayer
 		Score = GetChild<Label>(4);
 		HealthText = GetChild<Label>(5);
 		UDiedText = GetChild<Label>(6);
-		RestartBtn = GetChild<Button>(7);
 
 		GhostSpawner = GetNode<GhostSpawner>("../GhostSpawner");
 		Character = GetNode<Character>("../Character");
@@ -34,15 +32,15 @@ public partial class UI : CanvasLayer
 
 		// Подписка на события
 		Character.OnGetDamage += Character_OnGetDamage;
-		EventBus.instance.SubscribeOn_Character_Died(Character_OnDie);
-		EventBus.instance.SubscribeGhostDied(UpdateScoreText);
+		EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
+		EventBus.Instance.SubscribeOn_ScoreChanged(UpdateScoreText);
 		// Инициализация начальных значений
 		Character_OnGetDamage();
 		HideAllIcons();
 	}
 	public void UpdateScoreText()
 	{
-		Score.Text ="Score: " + ScoreManager.Score.ToString();
+		Score.Text = ScoreManager.Score.ToString();
 	}
 	public override void _Process(float delta)
 	{
@@ -108,16 +106,11 @@ public partial class UI : CanvasLayer
 	private void Character_OnDie()
 	{
 		UDiedText.Visible = true;
-		RestartBtn.Visible = true;
 	}
 
 	private void Character_OnGetDamage()
 	{
 		HealthText.Text = Character.GetHealth().ToString();
-	}
-	private void _on_Restart_pressed()
-	{
-		GetTree().ReloadCurrentScene();
 	}
 }
 

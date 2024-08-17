@@ -5,18 +5,12 @@ public partial class ScoreManager : Node
 	public int Score;
 	public override void _Ready()
 	{
-		EventBus.instance.SubscribeGhostDied(_on_Ghost_GhostDied);
+		EventBus.Instance.SubscribeOn_PlayerRight(AddScore);
 	}
-	private void _on_Ghost_GhostDied()
-	{
-		AddScore();
-		GD.Print("Ghost died and score:" + Score);
-	}
-
 	public void AddScore()
 	{
 		Score++;
-		EventBus.instance.RaiseOn_ScoreChanged(Score);
+		EventBus.Instance.RaiseOn_ScoreChanged(Score);
 
 	}
 	public void Reset()

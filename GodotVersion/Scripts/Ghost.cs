@@ -13,7 +13,7 @@ public partial class Ghost : Sprite3D
 	public override void _Process(float delta)
 	{
 		GlobalTransform = new Transform(GlobalTransform.basis, GlobalTransform.origin.MoveToward(target, speed * delta));
-		EventBus.instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.z, 0);
+		EventBus.Instance.RaiseOn_Ghost_Position_Changed(GlobalTransform.origin.z, 0);
 
 		ChangeSpeed(delta);
 		TargetReached();
@@ -36,7 +36,7 @@ public partial class Ghost : Sprite3D
 	{
 		if(GlobalTransform.origin.DistanceTo(target) < 1f )
 		{
-			EventBus.instance.RaiseOn_Ghost_Reached_Character();
+			EventBus.Instance.RaiseOn_PlayerMistake();
 			QueueFree();
 		}
 	}
@@ -61,7 +61,6 @@ public partial class Ghost : Sprite3D
 	public void Die()
 	{
 		AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostDie);
-		EventBus.instance.RaiseGhostDied();
 		QueueFree();
 	}
 }
