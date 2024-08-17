@@ -40,7 +40,7 @@
 				"properties": [
 					[
 						"name",
-						"Border"
+						"Background"
 					],
 					[
 						"collapsed_in_tree",
@@ -69,11 +69,54 @@
 						"00ffffff"
 					],
 					[
+						"ar_script",
+						"scripts/Background.arscript"
+					],
+					[
 						"shape",
 						0
 					]
 				],
 				"children": [
+					{
+						"class": "ARImage",
+						"properties": [
+							[
+								"name",
+								"ARImage"
+							],
+							[
+								"collapsed_in_tree",
+								false
+							],
+							[
+								"collapsed_in_tree_flags",
+								{
+									"is_visible": false
+								}
+							],
+							[
+								"width",
+								1820
+							],
+							[
+								"height",
+								840
+							],
+							[
+								"anchors",
+								16
+							],
+							[
+								"image",
+								"images/dead.png"
+							],
+							[
+								"v_frames",
+								4
+							]
+						]
+					},
 					{
 						"class": "AROverlap",
 						"properties": [
@@ -474,11 +517,11 @@
 							],
 							[
 								"top",
-								361.291473
+								360
 							],
 							[
 								"left",
-								300.47583
+								300
 							],
 							[
 								"width",
@@ -486,7 +529,7 @@
 							],
 							[
 								"height",
-								300.000031
+								300
 							],
 							[
 								"anchors",

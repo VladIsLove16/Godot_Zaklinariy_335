@@ -1,0 +1,34 @@
+extends AROverlap
+
+#Connect:
+var background_sprite: ARImage
+
+#Config
+var background_color_init		 = '#00ffffff'
+var background_color_loser	 = '#ffdd0000'
+var background_color_win	 	 = '#ff6100dd'
+var background_sprite_init		= 0
+
+func start() -> void:
+	background_sprite 	= get_ar_element("ARImage")
+
+func background_init()->void:
+	 background_color_init()
+
+func background_color_init() -> void:
+	background_color_set(background_color_init)
+	
+func background_color_loser() -> void:
+	background_color_set(background_color_loser)
+	
+func background_color_win() -> void:
+	background_color_set(background_color_win)
+
+func background_color_set(background_color_set)->void:
+	self.self_paint = background_color_set
+	
+func background_sprite_change () -> void:
+	background_sprite.frame+=1
+	
+func background_sprite_init () -> void:
+	background_sprite.frame = background_sprite_init
