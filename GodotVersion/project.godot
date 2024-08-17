@@ -42,6 +42,15 @@ G="*res://ar-engine-sdk/global.gd"
 IC="*res://ar-engine-sdk/input_controller.gd"
 WS="*res://ar-engine-sdk/websocket.gd"
 
+[display]
+
+window/size/width=1920
+window/size/height=1080
+
+[global]
+
+screen=false
+
 [gui]
 
 common/drop_mouse_on_gui_input_disabled=true

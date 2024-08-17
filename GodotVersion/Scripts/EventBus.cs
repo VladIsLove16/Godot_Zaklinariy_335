@@ -3,21 +3,32 @@ using System;
 
 public class EventBus : Node
 {
-	public event Action On_Ghost_Died;
-	public event Action On_Ghost_Spawn;
-	public event Action On_Ghost_Reached_Character;
-	public event Action On_Ghost_Position_Changed;
-	public event Action On_Ghost_CanBeKilled;
+	//ѕ≈–≈ƒјё“—я ¬ ARE
+    //создан+направление
+    private event Action On_Ghost_Spawn;
+	//можно убить
+	private event Action On_Ghost_CanBeKilled;
+	//позици€
+	private event Action On_Ghost_Position_Changed;
+	//убит(+балл)
+    //private event Action On_Ghost_Died;
+    private event Action On_PlayerRight;
+    //не убит(-жизнь)
+    private event Action On_PlayerMistake;
 
-	public event Action On_ScoreChanged;
+    //private event Action On_Ghost_Reached_Character;
 
-	public event Action On_Character_Died;
+    //Ќ≈ ѕ≈–≈ƒјё“—я ¬ ARE
+    //
+    private event Action On_ScoreChanged;
+	//
+	private event Action On_Character_Died;
+    //начало игры
+    //private event Action StartedHealth;
 
-	public event Action On_WrongInput;
-	public event Action On_RightInput;
 
 
-	public Node node;
+	private Node node;
 	public static EventBus instance;
 	public override void _Ready()
 	{
@@ -65,33 +76,48 @@ public class EventBus : Node
 		On_Ghost_Position_Changed -= action;
 	}
 
+
+	public void RaiseOn_Ghost_CanBeKilled()
+	{
+		On_Ghost_CanBeKilled?.Invoke();
+		SendMessage("ghost", "CanBeKilled");
+	}
+	public void SubscribeOn_Ghost_CanBeKilled(Action action)
+	{
+		On_Ghost_CanBeKilled += action;
+	}
+	public void UnSubscribeOn_Ghost_CanBeKilled(Action action)
+	{
+		On_Ghost_CanBeKilled -= action;
+	}
+
 	public void RaiseOn_WrongInput()
 	{
-		On_WrongInput?.Invoke();
+		On_PlayerMistake?.Invoke();
 		
 		SendMessage("input", "wrong");
 	}
 	public void SubscribeOn_WrongInput(Action action)
 	{
-		On_WrongInput += action;
+		On_PlayerMistake += action;
 	}
 	public void UnSubscribeOn_WrongInputd(Action action)
 	{
-		On_WrongInput -= action;
+		On_PlayerMistake -= action;
 	}
 
 	public void RaiseOn_RightInput()
 	{
-		On_RightInput?.Invoke();
+		On_PlayerRight?.Invoke();
 		SendMessage("input", "right");
 	}
 	public void SubscribeOn_RightInput(Action action)
 	{
-		On_RightInput += action;
+		On_PlayerRight += action;
 	}
 	public void UnSubscribeOn_RightInput(Action action)
 	{
-		On_RightInput -= action;
+		On_PlayerRight -= action;
 	}
 
 
@@ -167,7 +193,7 @@ public class EventBus : Node
 		On_Ghost_Reached_Character?.Invoke();
 		SendMessage("ghost", "reachedcharacter");
 
-		GD.Print("Ghost Died");
+		GD.Print("Ghost reachedcharacter");
 	}
 	public   void SubscribeOn_Ghost_Reached_Character(Action action)
 	{

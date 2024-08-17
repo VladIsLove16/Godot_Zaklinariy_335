@@ -10,6 +10,7 @@ public class GhostKillingZone : Area
 			Node node = (Node)area;
 			Ghost ghost = (Ghost)node.GetParent();
 			ghost.SetCanBeKilled(true);
+			EventBus.instance.RaiseOn_Ghost_CanBeKilled();
 		}
 		catch(Exception e)
 		{
