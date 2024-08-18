@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=44 format=2]
 
 [ext_resource path="res://Scripts/UI.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=2]
@@ -37,6 +37,8 @@
 [ext_resource path="res://Scripts/Buttons/GoToMenu.cs" type="Script" id=35]
 [ext_resource path="res://Scripts/Buttons/PauseMenu.cs" type="Script" id=36]
 [ext_resource path="res://Sprites/Group 1591.png" type="Texture" id=37]
+[ext_resource path="res://Scenes/Particles.tscn" type="PackedScene" id=38]
+[ext_resource path="res://Scripts/Particles.cs" type="Script" id=39]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -353,6 +355,13 @@ margin_top = -10.0
 margin_right = 1404.0
 margin_bottom = 729.0
 texture = ExtResource( 32 )
+
+[node name="Particles2D" parent="Control" instance=ExtResource( 38 )]
+position = Vector2( 968, 514 )
+speed_scale = 2.0
+visibility_rect = Rect2( -125, -125, 250, 250 )
+local_coords = false
+script = ExtResource( 39 )
 
 [connection signal="area_entered" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_entered"]
 [connection signal="area_exited" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_exited"]

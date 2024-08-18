@@ -10,6 +10,7 @@ public partial class SwipeInput : Node
     private bool MouseButtonDownWaitingFlag = true;
     private bool MouseButtonUpWaitingFlag = false;
     public static SwipeInput Instance;
+    public bool IsTouching; 
     public override void _Ready()
     {
         Instance = this;
