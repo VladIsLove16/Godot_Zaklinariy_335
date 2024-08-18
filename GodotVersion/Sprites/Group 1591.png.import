@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/pause_circle.png-0f5cfcca067ea85eca7df00ef1c7a639.stex"
+path="res://.import/Group 1591.png-0512bdb1457798ebd1d315c18987a5ac.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/pause_circle.png"
-dest_files=[ "res://.import/pause_circle.png-0f5cfcca067ea85eca7df00ef1c7a639.stex" ]
+source_file="res://Sprites/Group 1591.png"
+dest_files=[ "res://.import/Group 1591.png-0512bdb1457798ebd1d315c18987a5ac.stex" ]
 
 [params]
 
