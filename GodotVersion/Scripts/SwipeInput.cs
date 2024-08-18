@@ -83,7 +83,8 @@ public partial class SwipeInput : Node
 
 
             Vector2 dif = startTouchPosition - endTouchPosition;
-            if (dif.Length() < 10f)
+            GD.Print("dif vec " + dif);
+            if (dif.Length() < 5f)
                 return;
             else
             {
@@ -103,22 +104,22 @@ public partial class SwipeInput : Node
         {
             if(dif.x < 0)
             {
-                swipeType = SwipeType.left;
+                swipeType = SwipeType.right;
             }
             else
             {
-                swipeType = SwipeType.right;
+                swipeType = SwipeType.left;
             }
         }
         else
         {
             if (dif.y < 0)
             {
-                swipeType = SwipeType.upper;
+                swipeType = SwipeType.down;
             }
             else
             {
-                swipeType = SwipeType.down;
+                swipeType = SwipeType.upper;
             }
         }
         return swipeType;

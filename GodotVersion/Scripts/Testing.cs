@@ -11,11 +11,6 @@ public partial class Testing : Node
 	}
 	private void SwipeInput_Instance_OnSwipe(SwipeInput.SwipeArgs swipeArgs)
 	{
-		if(swipeArgs.swipeType == SwipeInput.SwipeType.left)
-		{
-			Debug.WriteLine("left swipe");
-		}
-		else
-			Debug.WriteLine("Right swipe");
+		GD.Print("SWIPE: " + swipeArgs.swipeType.ToString());
 	}
 }

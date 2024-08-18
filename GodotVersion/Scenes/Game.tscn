@@ -358,7 +358,7 @@ texture = ExtResource( 32 )
 
 [node name="Particles2D" parent="Control" instance=ExtResource( 38 )]
 position = Vector2( 968, 514 )
-speed_scale = 2.0
+amount = 1200
 visibility_rect = Rect2( -125, -125, 250, 250 )
 local_coords = false
 script = ExtResource( 39 )
