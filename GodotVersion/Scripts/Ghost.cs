@@ -42,8 +42,8 @@ public partial class Ghost : Sprite3D
 			{
 				Die();
 				return;
-            }
-            EventBus.Instance.RaiseOn_PlayerMistake();
+			}
+			EventBus.Instance.RaiseOn_PlayerMistake();
 			QueueFree();
 		}
 	}
@@ -77,10 +77,10 @@ public partial class Ghost : Sprite3D
 			Die();
 		else
 		{
-            AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostGetDamage);
-            EventBus.Instance.RaiseOn_PlayerRight();
-        }
-    }
+			AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostGetDamage);
+			EventBus.Instance.RaiseOn_PlayerRight();
+		}
+	}
 	public void Die()
 	{
 		AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostDie);
@@ -88,7 +88,7 @@ public partial class Ghost : Sprite3D
 		GD.Print("Died" + GhostType);
 		QueueFree();
 	}
-    public bool OnInput(SwipeArgs swipeArgs)
+	public bool OnInput(SwipeArgs swipeArgs)
 	{
 		if (GhostType == GhostType.Skip)
 		{
@@ -96,9 +96,9 @@ public partial class Ghost : Sprite3D
 			QueueFree();
 			return false;
 
-        }
+		}
 
-        if (SwipeType == SwipeType.tap)
+		if (SwipeType == SwipeType.tap)
 		{
 			if (swipeArgs.swipeType == SwipeType.tap)
 			{
@@ -107,8 +107,8 @@ public partial class Ghost : Sprite3D
 					Die();
 					return true;
 				}
-            }
-        }
+			}
+		}
 		else
 		{
 			if (swipeArgs.swipeType == SwipeType)
@@ -119,7 +119,7 @@ public partial class Ghost : Sprite3D
 		}
 		return false;
 
-    }
+	}
 }
 
 

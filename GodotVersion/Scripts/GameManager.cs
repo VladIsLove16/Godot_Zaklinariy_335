@@ -4,10 +4,10 @@ using static SwipeInput;
 
 public class GameManager : Spatial
 {
-    const float REACTION_TIME = 0.7f;
-    const float MovingTime = 3.7f;
+	const float REACTION_TIME = 0.7f;
+	const float MovingTime = 3.7f;
 
-    GhostSpawner GhostSpawner;
+	GhostSpawner GhostSpawner;
 	Character Character;
 	SwipeInput SwipeInput;
 	GhostKillingZone GhostKillingZone;
@@ -17,20 +17,20 @@ public class GameManager : Spatial
 		GhostSpawner =  GetNode<GhostSpawner>("../GhostSpawner");
 		Character =  GetNode<Character>("../Character");
 		SwipeInput =  GetNode<SwipeInput>("../SwipeInput");
-        GhostKillingZone =  GetNode<GhostKillingZone>("../GhostKillingZone");
+		GhostKillingZone =  GetNode<GhostKillingZone>("../GhostKillingZone");
 
 		SwipeInput.OnInput += SwipeInput_OnSwipe;
 		EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
 		SetTimers();
 
-    }
+	}
 	public void SetTimers()
 	{
 		GhostSpawner.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(0, 0, 0));
-        GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime- REACTION_TIME/2, 0, 0));
+		GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime- REACTION_TIME/2, 0, 0));
 		GhostKillingZone.Scale = new Vector3(REACTION_TIME / 2, 1, 1); 
-        Character.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime+ Character.Scale.x/2, 0, 0));
-    }
+		Character.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime+ Character.Scale.x/2, 0, 0));
+	}
 	private void Character_OnDie()
 	{
 		GhostSpawner.StopSpawning();

@@ -1,8 +1,8 @@
-﻿public enum GhostType
+public enum GhostType
 {
-    Swipe = 1,
-    DoubleSwipe = 2,
-    DoubleTap = 3,
-    Skip = 4,
-    Spin = 5
+	Swipe = 1,
+	DoubleSwipe = 2,
+	DoubleTap = 3,
+	Skip = 4,
+	Spin = 5
 }

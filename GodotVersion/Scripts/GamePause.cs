@@ -7,10 +7,10 @@ public static class GamePause
 	public static void Pause()
 	{
 		IsGamePaused = true;
-    }
+	}
 	public static void Play()
 	{
-        IsGamePaused = false;
+		IsGamePaused = false;
 
-    }
+	}
 }
