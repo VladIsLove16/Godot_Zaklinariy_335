@@ -9,7 +9,6 @@
 [ext_resource path="res://Scripts/SwipeInput.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/ScoreManager.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Character.cs" type="Script" id=9]
-[ext_resource path="res://Scripts/Testing.cs" type="Script" id=10]
 [ext_resource path="res://application/main.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Buttons/Pausebtn.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/GhostKillingZone.cs" type="Script" id=13]
@@ -39,6 +38,7 @@
 [ext_resource path="res://Sprites/Group 1591.png" type="Texture" id=37]
 [ext_resource path="res://Scenes/Particles.tscn" type="PackedScene" id=38]
 [ext_resource path="res://Scripts/Particles.cs" type="Script" id=39]
+[ext_resource path="res://Sprites/Rectangle 2 (1).png" type="Texture" id=40]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -94,7 +94,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99861, 0.171808, -4.77834 )
 script = ExtResource( 25 )
 
 [node name="Character" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 13.7314 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.26983, -2.10724, 33.1868 )
 script = ExtResource( 9 )
 Health = 1
 
@@ -105,6 +105,10 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18.3862 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Character/Area"]
 shape = SubResource( 1 )
+
+[node name="Sprite3D" type="Sprite3D" parent="Character"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+texture = ExtResource( 40 )
 
 [node name="GameManager" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.999815, 0.0192323, 0, -0.0192323, 0.999815, 0, 0, 0 )
@@ -135,9 +139,6 @@ bus = "Sounds"
 script = ExtResource( 3 )
 PlayerWrong = ExtResource( 29 )
 
-[node name="Testing" type="Node" parent="."]
-script = ExtResource( 10 )
-
 [node name="main" parent="." instance=ExtResource( 11 )]
 visible = false
 margin_left = -3.0
@@ -146,7 +147,7 @@ margin_right = -828.0
 margin_bottom = -217.0
 
 [node name="GhostKillingZone" type="Area" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 10 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 9.10256 )
 script = ExtResource( 13 )
 
 [node name="CollisionShape" type="CollisionShape" parent="GhostKillingZone"]
@@ -208,6 +209,14 @@ margin_right = 33.0
 margin_bottom = 224.0
 custom_fonts/font = ExtResource( 30 )
 text = "Здоровье"
+
+[node name="DoubleSwipe" type="Label" parent="Control"]
+margin_left = 839.0
+margin_top = 12.0
+margin_right = 1122.0
+margin_bottom = 143.0
+custom_fonts/font = ExtResource( 30 )
+text = "X2"
 
 [node name="UDied" type="Label" parent="Control"]
 visible = false

@@ -1,10 +1,13 @@
 using Godot;
 using System;
+using static SwipeInput;
+using System.Diagnostics;
 
 public partial class UI : Control
 {
 	[Export] private Label Score;
 	[Export] private Label HealthText;
+	[Export] private Label DoubleTap;
 	[Export] private Label UDiedText;
 
 	[Export] private Sprite LeftSwipeIcon;
@@ -24,7 +27,8 @@ public partial class UI : Control
 
 		Score = GetChild<Label>(4);
 		HealthText = GetChild<Label>(5);
-		UDiedText = GetChild<Label>(6);
+        DoubleTap = GetChild<Label>(6);
+		UDiedText = GetChild<Label>(7);
 
 		GhostSpawner = GetNode<GhostSpawner>("../GhostSpawner");
 		Character = GetNode<Character>("../Character");
@@ -48,16 +52,17 @@ public partial class UI : Control
 	}
 
 	private void ShowSwipeHelp()
-	{
+    {
 		Ghost ghost = GhostSpawner.GetCurrentGhost();
-		if (ghost != null )
+        //Debug.Print(ghost. SwipeType.ToString());
+        if (ghost != null )
 		{
 
 			if( ghost.CanBeKilled())
-				ShowSwipeIcon(ghost.SwipeType);
+				ShowSwipeIcon(ghost.SwipeType, ghost.GhostType);
 			else
 			{
-				ShowSwipeIcon(ghost.SwipeType,0.3f);
+				ShowSwipeIcon(ghost.SwipeType, ghost.GhostType,0.3f);
 			}
 		}
 		else
@@ -66,8 +71,26 @@ public partial class UI : Control
 		}
 	}
 
-	private void ShowSwipeIcon(SwipeInput.SwipeType swipeType,float alpha = 1f)
+	private void ShowSwipeIcon(SwipeInput.SwipeType swipeType,GhostType ghostType, float alpha = 1f)
 	{
+		if(ghostType == GhostType.Skip)
+		{
+			HideAllIcons();
+			return;
+        }
+		if(ghostType==GhostType.DoubleSwipe)
+		{
+			DoubleTap.Visible = true;
+		}	
+		else
+            DoubleTap.Visible = false;
+
+        if (swipeType == SwipeType.tap)
+		{
+			ShowAllIcons();
+			return;
+
+        }
 		HideAllIcons();
 
 		if (swipeType == SwipeInput.SwipeType.left)
@@ -101,6 +124,19 @@ public partial class UI : Control
 		RightSwipeIcon.Visible = false;
 		UpperSwipeIcon.Visible = false;
 		DownSwipeIcon.Visible = false;
+		DoubleTap.Visible = false;
+	}
+	private void ShowAllIcons()
+	{
+		LeftSwipeIcon.Visible = true;
+		RightSwipeIcon.Visible = true;
+        UpperSwipeIcon.Visible = true;
+        DownSwipeIcon.Visible = true;
+
+        LeftSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
+        RightSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
+        UpperSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
+        DownSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
 	}
 
 	private void Character_OnDie()

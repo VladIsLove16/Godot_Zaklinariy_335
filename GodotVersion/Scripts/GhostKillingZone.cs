@@ -4,7 +4,6 @@ public class GhostKillingZone : Area
 {
 	private void _on_GhostKillingZone_area_entered(object area)
 	{
-		GD.Print("Area type"+ area.GetType());
 		try
 		{
 			Node node = (Node)area;

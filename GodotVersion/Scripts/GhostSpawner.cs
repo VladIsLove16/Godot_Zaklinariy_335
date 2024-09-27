@@ -1,6 +1,5 @@
 using Godot;
-using System.Numerics;
-using static SwipeInput;
+using System.Diagnostics;
 
 public partial class GhostSpawner : Spatial
 {
@@ -8,12 +7,9 @@ public partial class GhostSpawner : Spatial
 	const int SWIPETYPES = 4;
 	const int bpm = 135;
 	const float bps = 135f / 60f;
-	//const float SPEED_CONST = 
+	const float SPEED_CONST = 1f;
 
 	private float spawnDelay;
-	private float GhostStartSpeed;
-	private float distanceToPlayer;
-
 	[Export]
 	private float FirstSpawnDelay;
 	[Export]
@@ -30,17 +26,16 @@ public partial class GhostSpawner : Spatial
 	private float ElapsedTime;
 	[Export]
 	private int StartSpeedMultiplier;
+	GhostDataFactory ghostDataFactory;
 
-	public override void _Ready()
+
+    public override void _Ready()
 	{
 		character =  GetNode<Character>("../Character");
-		distanceToPlayer = Mathf.Abs( character.GlobalTransform.origin.z - GlobalTransform.origin.z);
         spawnDelay = spawnDelayMultiplier / bps;
-
-        GhostStartSpeed = Mathf.Abs( StartSpeedMultiplier * distanceToPlayer / spawnDelay);
 		EventBus.Instance.SubscribeOn_PlayerRight(Ghost_OnDie);
-
-	}
+        ghostDataFactory  = new GhostDataFactory(SWIPETYPES, SPEED_CONST,character,GlobalTransform.origin);
+    }
 	public override void _Process(float delta)
 	{
 		if (SpawnOnAwake)
@@ -83,22 +78,19 @@ public partial class GhostSpawner : Spatial
 		{
 			if (pfGhost != null)
 			{
-				Ghost ghost = (Ghost)pfGhost.Instance(); //Mob mob = (Mob)MobScene.Instance();
-			   
-				SwipeType swipeType = (SwipeType)(GD.Randi() % SWIPETYPES);
-				Godot.Vector3 playerPosition =
-					//GetViewport().GetCamera().GlobalTransform.origin;
-					character.GlobalTransform.origin;
+                Ghost ghost = (Ghost)pfGhost.Instance();
 
-				ghost.Construct(swipeType, GlobalTransform.origin, playerPosition, GhostStartSpeed);//mob.Initialize(mobSpawnLocation.Translation, playerPosition);
+                GhostData data = ghostDataFactory.GetRandomGhostData();
+				//Debug.Print("SPAWMED WITH: Swipetype:" + data.SwipeType.ToString() + "ghostType:" + data.GhostType);
+                ghost.Construct(data);
 
-				EventBus.Instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.x, ROW, swipeType.ToString());
+				EventBus.Instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.z, ROW, data.SwipeType.ToString());
 
 				AddChild(ghost);
 			}
 		}
 	}
-	public void StopSpawning()
+    public void StopSpawning()
 	{
 		CanSpawn  = false;
 	}
@@ -110,6 +102,3 @@ public partial class GhostSpawner : Spatial
 		}
 	}
 }
-
-
-

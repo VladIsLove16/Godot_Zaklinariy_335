@@ -6,6 +6,7 @@ public partial class AudioManager : AudioStreamPlayer
 	public enum SoundType
 	{
 		GhostDie,
+		GhostGetDamage,
 		PlayerDie
 	}
 
@@ -14,6 +15,8 @@ public partial class AudioManager : AudioStreamPlayer
 	public AudioStream GhostDie;
 	[Export]
 	public AudioStream PlayerWrong;
+	[Export]
+	public AudioStream GhostGetDamage;
 
     public override void _Ready()
     {
@@ -25,7 +28,6 @@ public partial class AudioManager : AudioStreamPlayer
         //GhostDie = (AudioStream)GD.Load("res://Sounds/GhostDied.mp3");
         //PlayerDie = (AudioStream)GD.Load("res://Sounds/CharacterDied.mp3");
         // Инициализация AudioStreamPlayer
-        Debug.WriteLine("AudioManager created");
 
 	}
 	private void OnPlayerRight()
@@ -37,7 +39,6 @@ public partial class AudioManager : AudioStreamPlayer
 	{
 		Stream = PlayerWrong;
 		Play();
-		GD.Print("audio m play player right");
 	}
 	public void Initialize(Node parent)
 	{
@@ -46,7 +47,6 @@ public partial class AudioManager : AudioStreamPlayer
 
 	public void PlaySound(SoundType soundType)
 	{
-		Debug.WriteLine("AudioManager playing" + soundType.ToString());
 		switch (soundType)
 		{
 			case SoundType.GhostDie:
@@ -54,6 +54,9 @@ public partial class AudioManager : AudioStreamPlayer
 				break;
 			case SoundType.PlayerDie:
 				Stream = PlayerWrong;
+				break;
+			case SoundType.GhostGetDamage:
+				Stream = GhostGetDamage;
 				break;
 		}
 		Play();

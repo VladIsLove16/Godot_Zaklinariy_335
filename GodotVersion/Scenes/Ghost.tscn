@@ -7,7 +7,6 @@
 
 [node name="Ghost" type="Sprite3D"]
 transform = Transform( 0.997667, 0, 0.0682767, 0, 1, 0, -0.0682767, 0, 0.997667, 0, 0, 0 )
-visible = false
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
 

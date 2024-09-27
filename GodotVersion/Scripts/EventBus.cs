@@ -6,6 +6,8 @@ public class EventBus : Node
 	//ПЕРЕДАЮТСЯ В ARE
 	//создан+направление свайпа
 	private event Action On_Ghost_Spawn;
+
+	private event Action<GhostType> On_GhostKilled;
 	//можно убить
 	private event Action On_Ghost_CanBeKilled;
 	//позиция
@@ -181,6 +183,20 @@ public class EventBus : Node
 	public void UnSubscribeOn_Ghost_Spawnd(Action action)
 	{
 		On_Ghost_Spawn -= action;
+	}
+
+	public void RaiseOn_Ghost_Killed(string swipeType,GhostType type)
+	{
+		On_GhostKilled?.Invoke(type);
+		SendMessage("ghost", "killed", swipeType);
+	}
+	public void SubscribeOn_Ghost_Killed(Action<GhostType> action)
+	{
+		On_GhostKilled += action;
+	}
+	public void UnSubscribeOn_Ghost_Killed(Action<GhostType> action)
+	{
+		On_GhostKilled -= action;
 	}
 	
 }
