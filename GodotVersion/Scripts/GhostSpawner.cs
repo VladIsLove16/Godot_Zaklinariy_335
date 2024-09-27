@@ -1,5 +1,6 @@
 using Godot;
 using System.Diagnostics;
+using Zaklinariy_Godot353.Scripts;
 
 public partial class GhostSpawner : Spatial
 {
@@ -8,6 +9,7 @@ public partial class GhostSpawner : Spatial
 	const int bpm = 135;
 	const float bps = 135f / 60f;
 	const float SPEED_CONST = 1f;
+	private ISpawnDelayProvider spawnDelayProvider;
 
 	private float spawnDelay;
 	[Export]
@@ -29,13 +31,14 @@ public partial class GhostSpawner : Spatial
 	GhostDataFactory ghostDataFactory;
 
 
-    public override void _Ready()
+	public override void _Ready()
 	{
 		character =  GetNode<Character>("../Character");
-        spawnDelay = spawnDelayMultiplier / bps;
+		spawnDelay = spawnDelayMultiplier / bps;
 		EventBus.Instance.SubscribeOn_PlayerRight(Ghost_OnDie);
-        ghostDataFactory  = new GhostDataFactory(SWIPETYPES, SPEED_CONST,character,GlobalTransform.origin);
-    }
+		ghostDataFactory  = new GhostDataFactory(SWIPETYPES, SPEED_CONST,character,GlobalTransform.origin);
+
+	}
 	public override void _Process(float delta)
 	{
 		if (SpawnOnAwake)
@@ -54,7 +57,7 @@ public partial class GhostSpawner : Spatial
 			ElapsedTime += delta;
 			if (SpawnByTime)
 			{
-                untilSpawn -= delta;
+				untilSpawn -= delta;
 				if (untilSpawn < 0 && FirstSpawnDelay<=0)
 				{
 					Spawn();
@@ -62,6 +65,16 @@ public partial class GhostSpawner : Spatial
 				}
 			}
 		}
+	}
+	public void SetSpawnDelayProvider(ISpawnDelayProvider provider)
+	{
+		spawnDelayProvider = provider;
+		SetSpawnDelayMultiplier(spawnDelayProvider.GetSpawnDelayMultiplier());
+
+	}
+	public void SetSpawnDelayMultiplier(int spawnDelayMultiplier)
+	{
+		this.spawnDelayMultiplier = spawnDelayMultiplier;
 	}
 	public Ghost GetCurrentGhost()
 	{
@@ -78,11 +91,11 @@ public partial class GhostSpawner : Spatial
 		{
 			if (pfGhost != null)
 			{
-                Ghost ghost = (Ghost)pfGhost.Instance();
+				Ghost ghost = (Ghost)pfGhost.Instance();
 
-                GhostData data = ghostDataFactory.GetRandomGhostData();
+				GhostData data = ghostDataFactory.GetRandomGhostData();
 				//Debug.Print("SPAWMED WITH: Swipetype:" + data.SwipeType.ToString() + "ghostType:" + data.GhostType);
-                ghost.Construct(data);
+				ghost.Construct(data);
 
 				EventBus.Instance.RaiseOn_Ghost_Spawn(GlobalTransform.origin.z, ROW, data.SwipeType.ToString());
 
@@ -90,7 +103,7 @@ public partial class GhostSpawner : Spatial
 			}
 		}
 	}
-    public void StopSpawning()
+	public void StopSpawning()
 	{
 		CanSpawn  = false;
 	}

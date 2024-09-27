@@ -27,6 +27,7 @@ public class EventBus : Node
 	//НЕ ПЕРЕДАЮТСЯ В ARE
 	//
 	private event Action On_Character_Died;
+	private event Action<Level> On_GameLevelChanged;
 	//начало игры
 	//private event Action StartedHealth;
 
@@ -197,6 +198,19 @@ public class EventBus : Node
 	public void UnSubscribeOn_Ghost_Killed(Action<GhostType> action)
 	{
 		On_GhostKilled -= action;
+	}
+	public void RaiseOn_GameLevelChanged(Level level)
+	{
+		On_GameLevelChanged?.Invoke(level);
+		SendMessage("GameLevelChanged", level.ToString());
+	}
+	public void SubscribeOn_GameLevelChanged(Action<Level> action)
+	{
+		On_GameLevelChanged += action;
+	}
+	public void UnSubscribeOn_GameLevelChanged(Action<Level> action)
+	{
+		On_GameLevelChanged -= action;
 	}
 	
 }

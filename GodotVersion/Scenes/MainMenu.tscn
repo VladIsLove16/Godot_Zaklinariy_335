@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Themes/MainTheme.tres" type="Theme" id=1]
 [ext_resource path="res://Themes/new_dynamicfont.tres" type="DynamicFont" id=2]
@@ -6,12 +6,12 @@
 [ext_resource path="res://Scripts/MainMenu.cs" type="Script" id=4]
 [ext_resource path="res://Scripts/Buttons/Exitbtn.cs" type="Script" id=5]
 [ext_resource path="res://Scripts/Buttons/PlayBtn.cs" type="Script" id=6]
+[ext_resource path="res://Scripts/Buttons/SwitchLevel.cs" type="Script" id=7]
+[ext_resource path="res://Sprites/play_circle.png" type="Texture" id=8]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 896.0
-margin_bottom = 480.0
 script = ExtResource( 4 )
 
 [node name="Exit" type="Button" parent="."]
@@ -33,7 +33,7 @@ custom_fonts/font = ExtResource( 2 )
 text = "играть"
 script = ExtResource( 6 )
 
-[node name="GameNameText" type="Label" parent="."]
+[node name="GameNameText2" type="Label" parent="."]
 margin_top = 256.0
 margin_right = 1024.0
 margin_bottom = 448.0
@@ -42,5 +42,73 @@ custom_fonts/font = ExtResource( 2 )
 text = "заклинарий"
 uppercase = true
 
+[node name="Play2" type="Button" parent="."]
+visible = false
+margin_left = 1539.0
+margin_top = 189.0
+margin_right = 2185.0
+margin_bottom = 837.0
+custom_fonts/font = ExtResource( 2 )
+icon = ExtResource( 8 )
+flat = true
+clip_text = true
+expand_icon = true
+script = ExtResource( 6 )
+
+[node name="SetEasy" type="Button" parent="."]
+margin_left = 1509.0
+margin_top = 78.0
+margin_right = 1894.0
+margin_bottom = 239.0
+custom_fonts/font = ExtResource( 2 )
+text = "Легко"
+expand_icon = true
+script = ExtResource( 7 )
+
+[node name="SetNormal" type="Button" parent="."]
+margin_left = 1164.0
+margin_top = 250.0
+margin_right = 1895.0
+margin_bottom = 411.0
+custom_fonts/font = ExtResource( 2 )
+text = "Нормально"
+script = ExtResource( 7 )
+level = 1
+
+[node name="SetHard" type="Button" parent="."]
+margin_left = 1383.0
+margin_top = 420.0
+margin_right = 1896.0
+margin_bottom = 581.0
+custom_fonts/font = ExtResource( 2 )
+text = "Сложно"
+expand_icon = true
+script = ExtResource( 7 )
+level = 2
+
+[node name="GameNameText" type="Label" parent="."]
+margin_left = 45.0
+margin_top = 739.0
+margin_right = 1594.0
+margin_bottom = 931.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Уровень Сложности:"
+uppercase = true
+
+[node name="Level" type="Label" parent="."]
+margin_left = 58.0
+margin_top = 892.0
+margin_right = 1082.0
+margin_bottom = 1084.0
+theme = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
+text = "Easy"
+uppercase = true
+
 [connection signal="pressed" from="Exit" to="Exit" method="_on_Exit_pressed"]
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Play2" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="SetEasy" to="SetEasy" method="_on_pressed"]
+[connection signal="pressed" from="SetNormal" to="SetNormal" method="_on_pressed"]
+[connection signal="pressed" from="SetHard" to="SetHard" method="_on_pressed"]

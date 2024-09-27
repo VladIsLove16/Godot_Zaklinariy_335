@@ -116,7 +116,7 @@ script = ExtResource( 2 )
 
 [node name="GhostSpawner" type="Spatial" parent="."]
 script = ExtResource( 5 )
-spawnDelayMultiplier = 2
+spawnDelayMultiplier = 3
 pfGhost = ExtResource( 6 )
 SpawnByTime = true
 SpawnOnAwake = true

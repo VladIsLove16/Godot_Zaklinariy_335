@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using Zaklinariy_Godot353.Scripts;
 using static SwipeInput;
 public class GhostDataFactory
 {
@@ -34,7 +35,7 @@ public class GhostDataFactory
 	{
 		int totalWeight  = 0;
 		Dictionary<GhostType, int> values = new Dictionary<GhostType, int>();
-		foreach(var type in SpawnChances.values)
+		foreach (var type in SpawnChances.GetValues(GameSettings.Level))
 		{
 			totalWeight += type.Value;
 			values.Add(type.Key, totalWeight);
