@@ -2,41 +2,50 @@ using Godot;
 using System;
 public partial class ScoreManager : Node
 {
-	public int Score;
-	public override void _Ready()
+	public int CurrentScore { get;private set; }
+	public int GlobalScore { get; private set; }
+    public override void _Ready()
 	{
-		EventBus.Instance.SubscribeOn_PlayerRight(AddScore);
 		EventBus.Instance.SubscribeOn_Ghost_Killed(AddScore);
+		EventBus.Instance.SubscribeOn_PlayerMistake(On_Mistake);
 	}
-	public void AddScore()
-	{
-		Score++;
-		EventBus.Instance.RaiseOn_ScoreChanged(Score);
 
+	private void On_Mistake()
+	{
+		GlobalScore += CurrentScore;
+		CurrentScore = 0;
+		EventBus.Instance.RaiseOn_ScoreChanged(CurrentScore);
 	}
 	public void AddScore(GhostType type)
 	{
-		if (type == GhostType.Skip)
-			Score *= 2;
-		else if (type == GhostType.DoubleTap)
-			Score *= 3;
-		if (type == GhostType.Swipe)
-			Score += 1;
-		else if (type == GhostType.DoubleSwipe)
-			Score += 2;
-		else if (type == GhostType.Spin)
-			Score *= 0;
-		else
-			Score+= (int)type;
+        switch (type)
+        {
 
-		GD.Print("Ghost " + type.ToString() + " " + (int)type + "killed " + Score);
-		EventBus.Instance.RaiseOn_ScoreChanged(Score);
+            case GhostType.Swipe:
+                CurrentScore += 1;
+				break;
+            case GhostType.DoubleSwipe:
+                CurrentScore += 2;
+                break;
+            case GhostType.DoubleTap:
+                CurrentScore *= 3;
+                break;
+            case GhostType.Skip:
+                CurrentScore *= 2;
+                break;
+            case GhostType.Spin:
+                CurrentScore *= 0;
+                break;
+        }
+		GD.Print("Ghost " + type.ToString() + " " + (int)type + "killed " + CurrentScore);
+		EventBus.Instance.RaiseOn_ScoreChanged(CurrentScore);
 
 	}
 	public void Reset()
 	{
-		Score = 0;
-	}
+		CurrentScore = 0;
+        EventBus.Instance.RaiseOn_ScoreChanged(CurrentScore);
+    }
 
 }
 

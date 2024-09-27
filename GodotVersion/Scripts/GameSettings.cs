@@ -6,6 +6,7 @@
         public static void ChangeLevel(Level level)
         {
             Level = level;
+
         }
     }
 }

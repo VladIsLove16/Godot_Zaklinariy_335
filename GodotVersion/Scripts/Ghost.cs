@@ -36,7 +36,7 @@ public partial class Ghost : Sprite3D
 
 	private void TargetReached()
 	{
-		if (GlobalTransform.origin.DistanceTo(target) < 1f)
+		if (GlobalTransform.origin.DistanceTo(target) < 0.01f)
 		{
 			if (GhostType == GhostType.Skip)
 			{
@@ -70,7 +70,7 @@ public partial class Ghost : Sprite3D
 		this.target = target;
 	}
 
-	public virtual void GetDamage()
+	public void GetDamage()
 	{
 		Health--;
 		if (Health == 0)
@@ -78,14 +78,14 @@ public partial class Ghost : Sprite3D
 		else
 		{
 			AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostGetDamage);
-			EventBus.Instance.RaiseOn_PlayerRight();
+			//EventBus.Instance.RaiseOn_PlayerRight();
 		}
 	}
 	public void Die()
 	{
 		AudioManager.Instance.PlaySound(AudioManager.SoundType.GhostDie);
 		EventBus.Instance.RaiseOn_Ghost_Killed(SwipeType.ToString(), GhostType);
-		GD.Print("Died" + GhostType);
+		GD.Print("Died " + GhostType);
 		QueueFree();
 	}
 	public bool OnInput(SwipeArgs swipeArgs)

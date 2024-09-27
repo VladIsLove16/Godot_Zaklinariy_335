@@ -78,13 +78,22 @@ public class GhostDataFactory
 	}
 	private int GetGhostHealth()
 	{
-		if (ghostType == GhostType.Swipe)
-			return 1;
-		if(ghostType == GhostType.DoubleSwipe)
-			return 2;
-		if(ghostType == GhostType.DoubleTap)
-			return 1;
-		return 1;
+		switch (ghostType)
+		{
+
+			case GhostType.Swipe:
+				return 1;
+			case GhostType.DoubleSwipe:
+				return 2;
+			case GhostType.DoubleTap:
+				return 1;
+			case GhostType.Skip:
+				return 1;
+			case GhostType.Spin:
+				return 1;
+			default:
+				return 1;
+		}
 	}
 	private float GetGhostSpeed()
 	{

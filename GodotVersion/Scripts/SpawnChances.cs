@@ -4,10 +4,10 @@ public static class SpawnChances
 {
 	public static Dictionary<GhostType, int> lvl1 = new Dictionary<GhostType, int>()
 	{
-		[GhostType.Swipe] = 0,
-		[GhostType.DoubleSwipe] = 0,
-		[GhostType.DoubleTap] = 0,
-		[GhostType.Skip] = 1500,
+		[GhostType.Swipe] = 30,
+		[GhostType.DoubleSwipe] = 30,
+		[GhostType.DoubleTap] = 30,
+		[GhostType.Skip] = 10,
 		[GhostType.Spin] = 0,
 	};
 	public static Dictionary<GhostType, int> lvl2 = new Dictionary<GhostType, int>()
@@ -20,10 +20,10 @@ public static class SpawnChances
 	};
 	public static Dictionary<GhostType, int> lvl3 = new Dictionary<GhostType, int>()
 	{
-		[GhostType.Swipe] = 0,
-		[GhostType.DoubleSwipe] = 0,
-		[GhostType.DoubleTap] = 0,
-		[GhostType.Skip] = 1500,
+		[GhostType.Swipe] = 30,
+		[GhostType.DoubleSwipe] = 30,
+		[GhostType.DoubleTap] = 30,
+		[GhostType.Skip] = 10,
 		[GhostType.Spin] = 0,
 	};
 	public static Dictionary<GhostType, int> GetValues(Level level)

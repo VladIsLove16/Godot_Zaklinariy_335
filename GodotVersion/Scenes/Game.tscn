@@ -184,11 +184,21 @@ rotation = -0.000204129
 scale = Vector2( 0.741696, 0.426308 )
 texture = ExtResource( 17 )
 
-[node name="Score" type="Label" parent="Control"]
+[node name="GlobalScore" type="Label" parent="Control"]
+margin_left = 26.0
+margin_top = 510.0
+margin_right = 421.0
+margin_bottom = 1130.0
+custom_fonts/font = ExtResource( 26 )
+text = "0"
+align = 1
+autowrap = true
+
+[node name="CurrentScore" type="Label" parent="Control"]
 margin_left = 234.0
-margin_top = 55.0
+margin_top = 91.0
 margin_right = 955.0
-margin_bottom = 743.0
+margin_bottom = 779.0
 custom_fonts/font = ExtResource( 26 )
 text = "0"
 align = 1
@@ -210,11 +220,11 @@ margin_bottom = 224.0
 custom_fonts/font = ExtResource( 30 )
 text = "Здоровье"
 
-[node name="DoubleSwipe" type="Label" parent="Control"]
-margin_left = 839.0
-margin_top = 12.0
-margin_right = 1122.0
-margin_bottom = 143.0
+[node name="DoubleTap" type="Label" parent="Control"]
+margin_left = 734.0
+margin_top = 168.0
+margin_right = 1017.0
+margin_bottom = 299.0
 custom_fonts/font = ExtResource( 30 )
 text = "X2"
 

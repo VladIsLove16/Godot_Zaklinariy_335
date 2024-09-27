@@ -5,7 +5,8 @@ using System.Diagnostics;
 
 public partial class UI : Control
 {
-	[Export] private Label Score;
+	[Export] private Label CurrentScore;
+	[Export] private Label GlobalScore;
 	[Export] private Label HealthText;
 	[Export] private Label DoubleTap;
 	[Export] private Label UDiedText;
@@ -25,10 +26,11 @@ public partial class UI : Control
 		UpperSwipeIcon = GetChild<Sprite>(2);
 		DownSwipeIcon = GetChild<Sprite>(3);
 
-		Score = GetChild<Label>(4);
-		HealthText = GetChild<Label>(5);
-        DoubleTap = GetChild<Label>(6);
-		UDiedText = GetChild<Label>(7);
+		GlobalScore = GetNode<Label>("GlobalScore");
+        CurrentScore = GetNode<Label>("CurrentScore");
+        HealthText = GetNode<Label>("health");
+        DoubleTap = GetNode<Label>("DoubleTap");
+		UDiedText = GetNode<Label>("UDied");
 
 		GhostSpawner = GetNode<GhostSpawner>("../GhostSpawner");
 		Character = GetNode<Character>("../Character");
@@ -44,7 +46,8 @@ public partial class UI : Control
 	}
 	public void UpdateScoreText()
 	{
-		Score.Text = ScoreManager.Score.ToString();
+		GlobalScore.Text = ScoreManager.GlobalScore.ToString();
+        CurrentScore.Text = ScoreManager.CurrentScore.ToString();
 	}
 	public override void _Process(float delta)
 	{
@@ -87,7 +90,7 @@ public partial class UI : Control
 
         if (swipeType == SwipeType.tap)
 		{
-			ShowAllIcons();
+			ShowAllIcons(alpha);
 			return;
 
         }
@@ -124,19 +127,18 @@ public partial class UI : Control
 		RightSwipeIcon.Visible = false;
 		UpperSwipeIcon.Visible = false;
 		DownSwipeIcon.Visible = false;
-		DoubleTap.Visible = false;
 	}
-	private void ShowAllIcons()
+	private void ShowAllIcons(float alpha = 1f)
 	{
 		LeftSwipeIcon.Visible = true;
 		RightSwipeIcon.Visible = true;
         UpperSwipeIcon.Visible = true;
         DownSwipeIcon.Visible = true;
 
-        LeftSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
-        RightSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
-        UpperSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
-        DownSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, 1f);
+        LeftSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
+        RightSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
+        UpperSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
+        DownSwipeIcon.Modulate = new Color(LeftSwipeIcon.Modulate.r, LeftSwipeIcon.Modulate.g, LeftSwipeIcon.Modulate.b, alpha);
 	}
 
 	private void Character_OnDie()

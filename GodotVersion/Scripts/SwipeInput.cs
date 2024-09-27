@@ -94,7 +94,12 @@ public partial class SwipeInput : Node
             SwipeArgs args = new SwipeArgs(swipeType);
 
             if (DoubleTapCheck(swipeType))
+            {
                 args.isDoubleTap = true;
+                Debug.Print("DoubleTap!!");
+            }
+            else
+                Debug.Print("Tap!");
             OnInput.Invoke(args);
             lastSwipeType = swipeType;
             lastTimeSwiped = DateTime.Now;
@@ -120,7 +125,6 @@ public partial class SwipeInput : Node
         else
         {
             doubleTapFlag = false;
-            //Debug.Print("DoubleTap");
             return true;
         }
     }
