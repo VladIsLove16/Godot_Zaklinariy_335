@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=45 format=2]
 
 [ext_resource path="res://Scripts/UI.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Scripts/SwipeInput.cs" type="Script" id=7]
 [ext_resource path="res://Scripts/ScoreManager.cs" type="Script" id=8]
 [ext_resource path="res://Scripts/Character.cs" type="Script" id=9]
+[ext_resource path="res://Themes/ScoreText2.tres" type="DynamicFont" id=10]
 [ext_resource path="res://application/main.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scripts/Buttons/Pausebtn.cs" type="Script" id=12]
 [ext_resource path="res://Scripts/GhostKillingZone.cs" type="Script" id=13]
@@ -155,50 +156,54 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.23591, 0.200059 )
 shape = SubResource( 2 )
 
 [node name="Control" type="Control" parent="."]
-margin_right = 1920.0
-margin_bottom = 1080.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = -1920.0
+margin_bottom = -1080.0
 grow_horizontal = 0
 grow_vertical = 0
 script = ExtResource( 1 )
 
 [node name="LeftSwipe" type="Sprite" parent="Control"]
-position = Vector2( 968, 363 )
+position = Vector2( 1370, 528 )
 scale = Vector2( 0.707692, 0.53404 )
 texture = ExtResource( 4 )
 
 [node name="RightSwipe" type="Sprite" parent="Control"]
-position = Vector2( 187, 336 )
+position = Vector2( 604, 531 )
 rotation = -0.000204129
 scale = Vector2( 0.823234, 0.473174 )
 texture = ExtResource( 15 )
 
 [node name="UpperSwipe" type="Sprite" parent="Control"]
-position = Vector2( 589, 711 )
+position = Vector2( 976, 903 )
 rotation = -0.000204129
 scale = Vector2( 0.897612, 0.515924 )
 texture = ExtResource( 16 )
 
 [node name="DownSwipe" type="Sprite" parent="Control"]
-position = Vector2( 582, 87 )
+position = Vector2( 993, 210 )
 rotation = -0.000204129
 scale = Vector2( 0.741696, 0.426308 )
 texture = ExtResource( 17 )
 
 [node name="GlobalScore" type="Label" parent="Control"]
-margin_left = 26.0
-margin_top = 510.0
-margin_right = 421.0
-margin_bottom = 1130.0
-custom_fonts/font = ExtResource( 26 )
+margin_left = -73.0
+margin_top = 804.0
+margin_right = 322.0
+margin_bottom = 1424.0
+custom_fonts/font = ExtResource( 10 )
 text = "0"
 align = 1
 autowrap = true
 
 [node name="CurrentScore" type="Label" parent="Control"]
-margin_left = 234.0
-margin_top = 91.0
-margin_right = 955.0
-margin_bottom = 779.0
+margin_left = 603.0
+margin_top = 214.0
+margin_right = 1324.0
+margin_bottom = 902.0
+grow_horizontal = 0
+grow_vertical = 0
 custom_fonts/font = ExtResource( 26 )
 text = "0"
 align = 1
@@ -213,18 +218,18 @@ text = "0
 "
 
 [node name="health2" type="Label" parent="Control/health"]
-margin_left = -247.0
-margin_top = -2.0
-margin_right = 33.0
-margin_bottom = 224.0
+margin_left = -259.0
+margin_top = 1.0
+margin_right = 21.0
+margin_bottom = 227.0
 custom_fonts/font = ExtResource( 30 )
 text = "Здоровье"
 
 [node name="DoubleTap" type="Label" parent="Control"]
-margin_left = 734.0
-margin_top = 168.0
-margin_right = 1017.0
-margin_bottom = 299.0
+margin_left = 1169.0
+margin_top = 87.0
+margin_right = 1452.0
+margin_bottom = 218.0
 custom_fonts/font = ExtResource( 30 )
 text = "X2"
 
@@ -238,10 +243,10 @@ text = "U died
 "
 
 [node name="BackgroundElements" type="TextureRect" parent="Control"]
-margin_left = 1515.0
-margin_top = -179.0
-margin_right = 2591.0
-margin_bottom = 771.0
+margin_left = 1261.0
+margin_top = -247.0
+margin_right = 2337.0
+margin_bottom = 703.0
 texture = ExtResource( 23 )
 
 [node name="WrongInput" type="TextureRect" parent="Control"]

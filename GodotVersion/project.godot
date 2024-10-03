@@ -47,6 +47,8 @@ WS="*res://ar-engine-sdk/websocket.gd"
 
 window/size/width=1920
 window/size/height=1080
+window/stretch/mode="viewport"
+window/stretch/aspect="expand"
 
 [global]
 
