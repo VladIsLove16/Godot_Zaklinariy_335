@@ -9,8 +9,9 @@ namespace Zaklinariy_Godot353.Scripts
 	{
 		Level level;
 		const float REACTION_TIME = 0.7f;
-		const float MovingTime = 3.7f;
-		GhostSpawner GhostSpawner;
+        const int MovingTimeInBits = 7;
+        private float MovingTime;
+        GhostSpawner GhostSpawner;
 		Character Character;
 		SwipeInput SwipeInput;
 		GhostKillingZone GhostKillingZone;
@@ -36,7 +37,8 @@ namespace Zaklinariy_Godot353.Scripts
 		}
 		public void SetTimers()
 		{
-			GhostSpawner.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(0, 0, 0));
+			MovingTime = MovingTimeInBits * GhostSpawner.GetTimeBetweenBits()+0.05f;
+            GhostSpawner.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(0, 0, 0));
 			GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime - REACTION_TIME / 2, 0, 0));
 			GhostKillingZone.Scale = new Vector3(REACTION_TIME / 2, 1, 1);
 			Character.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime + Character.Scale.x / 2, 0, 0));

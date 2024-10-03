@@ -72,6 +72,16 @@ public partial class GhostSpawner : Spatial
 		SetSpawnDelayMultiplier(spawnDelayProvider.GetSpawnDelayMultiplier());
 
 	}
+	public int GetBpm()
+	{
+
+		return bpm; 
+	}
+	public float GetTimeBetweenBits()
+	{
+
+		return 1f/bps; 
+	}
 	public void SetSpawnDelayMultiplier(int spawnDelayMultiplier)
 	{
 		this.spawnDelayMultiplier = spawnDelayMultiplier;
