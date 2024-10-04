@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=2]
+[gd_scene load_steps=46 format=2]
 
 [ext_resource path="res://Scripts/UI.cs" type="Script" id=1]
 [ext_resource path="res://Scripts/GameManager.cs" type="Script" id=2]
@@ -40,6 +40,7 @@
 [ext_resource path="res://Scenes/Particles.tscn" type="PackedScene" id=38]
 [ext_resource path="res://Scripts/Particles.cs" type="Script" id=39]
 [ext_resource path="res://Sprites/Rectangle 2 (1).png" type="Texture" id=40]
+[ext_resource path="res://Scripts/TouchHandler.cs" type="Script" id=41]
 
 [sub_resource type="SphereShape" id=1]
 
@@ -120,7 +121,7 @@ script = ExtResource( 2 )
 
 [node name="GhostSpawner" type="Spatial" parent="."]
 script = ExtResource( 5 )
-spawnDelayMultiplier = 3
+spawnDelayMultiplier = 2
 pfGhost = ExtResource( 6 )
 SpawnByTime = true
 SpawnOnAwake = true
@@ -200,6 +201,17 @@ margin_left = 603.0
 margin_top = 214.0
 margin_right = 1324.0
 margin_bottom = 902.0
+grow_horizontal = 0
+grow_vertical = 0
+custom_fonts/font = ExtResource( 26 )
+text = "0"
+align = 1
+
+[node name="Bits" type="Label" parent="Control"]
+margin_left = 1155.0
+margin_top = 10.0
+margin_right = 1876.0
+margin_bottom = 698.0
 grow_horizontal = 0
 grow_vertical = 0
 custom_fonts/font = ExtResource( 26 )
@@ -383,6 +395,9 @@ amount = 1200
 visibility_rect = Rect2( -125, -125, 250, 250 )
 local_coords = false
 script = ExtResource( 39 )
+
+[node name="TouchHandler" type="Node" parent="."]
+script = ExtResource( 41 )
 
 [connection signal="area_entered" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_entered"]
 [connection signal="area_exited" from="GhostKillingZone" to="GhostKillingZone" method="_on_GhostKillingZone_area_exited"]

@@ -7,6 +7,7 @@ public partial class UI : Control
 {
 	[Export] private Label CurrentScore;
 	[Export] private Label GlobalScore;
+	[Export] private Label Bits;
 	[Export] private Label HealthText;
 	[Export] private Label DoubleTap;
 	[Export] private Label UDiedText;
@@ -28,6 +29,7 @@ public partial class UI : Control
 
 		GlobalScore = GetNode<Label>("GlobalScore");
         CurrentScore = GetNode<Label>("CurrentScore");
+        Bits = GetNode<Label>("Bits");
         HealthText = GetNode<Label>("health");
         DoubleTap = GetNode<Label>("DoubleTap");
 		UDiedText = GetNode<Label>("UDied");
@@ -52,7 +54,8 @@ public partial class UI : Control
 	public override void _Process(float delta)
 	{
 		ShowSwipeHelp();
-	}
+		Bits.Text = GhostSpawner.Bits.ToString();
+    }
 
 	private void ShowSwipeHelp()
     {

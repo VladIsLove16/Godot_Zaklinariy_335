@@ -1,21 +1,19 @@
 using Godot;
-using static Godot.GD;
-using System.Diagnostics;
 using static SwipeInput;
 
 namespace Zaklinariy_Godot353.Scripts
 {
 	public class GameManager : Spatial
 	{
-		
-		//указывайте в 2 раза больше, чем хотите
-		const float REACTION_TIME = 0.7f;
-		//окошко между появлением стрелок(ярким горением) и первым битом, в который можно убить
-		const float firstWindow = 0f;
-		const int TimeToKillZoneInBits = 7;//за секудну примерно 2 бита, поэтому 1 бит примерно 0,44 секунды
+		//СѓРєР°Р·С‹РІР°Р№С‚Рµ РІ 2 СЂР°Р·Р° Р±РѕР»СЊС€Рµ, С‡РµРј С…РѕС‚РёС‚Рµ
+		const float REACTION_TIME = 1.4f;
+		//РѕРєРѕС€РєРѕ РјРµР¶РґСѓ РїРѕСЏРІР»РµРЅРёРµРј СЃС‚СЂРµР»РѕРє(СЏСЂРєРёРј РіРѕСЂРµРЅРёРµРј) Рё РїРµСЂРІС‹Рј Р±РёС‚РѕРј, РІ РєРѕС‚РѕСЂС‹Р№ РјРѕР¶РЅРѕ СѓР±РёС‚СЊ
+		const float firstWindow = 0.03f;
+		const int TimeToKillZoneInBits = 7;//Р·Р° СЃРµРєСѓРґРЅСѓ РїСЂРёРјРµСЂРЅРѕ 2 Р±РёС‚Р°, РїРѕСЌС‚РѕРјСѓ 1 Р±РёС‚ РїСЂРёРјРµСЂРЅРѕ 0,44 СЃРµРєСѓРЅРґС‹
 
-        Level level;
-        GhostSpawner GhostSpawner;
+		[Export]
+		Level level;
+		GhostSpawner GhostSpawner;
 		Character Character;
 		SwipeInput SwipeInput;
 		GhostKillingZone GhostKillingZone;
@@ -30,8 +28,9 @@ namespace Zaklinariy_Godot353.Scripts
 			SwipeInput.OnInput += SwipeInput_OnSwipe;
 			EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
 			SetTimers();
+            GameSettings.ChangeLevel(level);
+			GameSettings.ChangeLevel(Level.hard);
 			ChangeDifficulty(GameSettings.Level);
-
 		}
 		public void ChangeDifficulty(Level newDifficulty)
 		{
@@ -41,17 +40,15 @@ namespace Zaklinariy_Godot353.Scripts
 		}
 		public void SetTimers()
 		{
-            GhostKillingZone.Scale = new Vector3(REACTION_TIME / 2, 1, 1);
-            GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3((TimeToKillZoneInBits * GhostSpawner.GetTimeBetweenBits())- firstWindow + GhostKillingZone.Scale.x / 2, 0, 0));
+			GhostKillingZone.Scale = new Vector3(REACTION_TIME/2, 1, 1);
+			GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(((float) TimeToKillZoneInBits * (GhostSpawner.GetTimeBetweenBits()))- firstWindow + GhostKillingZone.Scale.x, 0, 0));
 			GhostSpawner.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(0, 0, 0));
 			Character.GlobalTransform = GhostKillingZone.GlobalTransform;
-
-        }
+		}
 		private void Character_OnDie()
 		{
 			GhostSpawner.StopSpawning();
 		}
-
 		private void SwipeInput_OnSwipe(SwipeArgs swipeArgs)
 		{
 			Ghost ghost = GhostSpawner.GetCurrentGhost();
@@ -65,7 +62,9 @@ namespace Zaklinariy_Godot353.Scripts
 				if(!result)
 					EventBus.Instance.RaiseOn_PlayerMistake();
 			}
-		}
+			else
+                EventBus.Instance.RaiseOn_PlayerMistake();
+        }
 		public void RestartGame()
 		{
 			GetTree().ReloadCurrentScene();

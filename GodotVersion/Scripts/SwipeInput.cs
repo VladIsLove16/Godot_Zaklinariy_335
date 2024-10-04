@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
 using Godot;
-using static SwipeInput;
 
 public partial class SwipeInput : Node
 {
@@ -28,12 +27,34 @@ public partial class SwipeInput : Node
         if (!GamePause.IsGamePaused)
         {
             OnMouseInput();
-            OnTouchInput();
         }
-        //OnKeyBoardInput();
     }
 
     public override void _Input(InputEvent inputEvent)
+    {
+        if (!GamePause.IsGamePaused)
+        {
+            KeyboardInput(inputEvent);
+            TouchInput(inputEvent);
+        }
+    }
+
+    private void TouchInput(InputEvent inputEvent)
+    {
+        if (inputEvent is InputEventScreenTouch screenTouchEvent)
+        {
+            if (screenTouchEvent.Pressed)
+            {
+                OnPressed(screenTouchEvent.Position);
+            }
+            else
+            {
+                OnRelease(screenTouchEvent.Position);
+            }
+        }
+    }
+
+    private void KeyboardInput(InputEvent inputEvent)
     {
         if (inputEvent is InputEventKey keyEvent && keyEvent.Pressed)
         {
@@ -62,48 +83,52 @@ public partial class SwipeInput : Node
                 case KeyList.D:
                     OnInput(new SwipeArgs(SwipeType.right));
                     break;
-                //case KeyList.A:
-                //    OnSwipe(new SwipeArgs(SwipeType.left));
-                //    break;
+                    //case KeyList.A:
+                    //    OnSwipe(new SwipeArgs(SwipeType.left));
+                    //    break;
             }
         }
     }
-
-    private void OnTouchInput()
-    {
-       
-    }
-
     private void OnMouseInput()
     {
         if (Input.IsMouseButtonPressed(1) && MouseButtonDownWaitingFlag == true)
         {
-            startTouchPosition = GetViewport().GetMousePosition();
-            MouseButtonUpWaitingFlag = true;
-            MouseButtonDownWaitingFlag = false;
+            OnPressed(GetViewport().GetMousePosition());
         }
         if (!Input.IsMouseButtonPressed(1) && MouseButtonUpWaitingFlag == true)
         {
-            endTouchPosition = GetViewport().GetMousePosition();
-            MouseButtonUpWaitingFlag = false;
-            MouseButtonDownWaitingFlag = true;
-
-
-            Vector2 dif = startTouchPosition - endTouchPosition;
-            SwipeType swipeType = GetSwipeType(startTouchPosition, endTouchPosition);
-            SwipeArgs args = new SwipeArgs(swipeType);
-
-            if (DoubleTapCheck(swipeType))
-            {
-                args.isDoubleTap = true;
-                Debug.Print("DoubleTap!!");
-            }
-            else
-                Debug.Print("Tap!");
-            OnInput.Invoke(args);
-            lastSwipeType = swipeType;
-            lastTimeSwiped = DateTime.Now;
+            OnRelease(GetViewport().GetMousePosition());
         }
+    }
+
+    private void OnRelease(Vector2 vector)
+    {
+        endTouchPosition =vector;
+        MouseButtonUpWaitingFlag = false;
+        MouseButtonDownWaitingFlag = true;
+
+
+        Vector2 dif = startTouchPosition - endTouchPosition;
+        SwipeType swipeType = GetSwipeType(startTouchPosition, endTouchPosition);
+        SwipeArgs args = new SwipeArgs(swipeType);
+
+        if (DoubleTapCheck(swipeType))
+        {
+            args.isDoubleTap = true;
+            Debug.Print("DoubleTap!!");
+        }
+        else
+            Debug.Print("Tap!");
+        OnInput.Invoke(args);
+        lastSwipeType = swipeType;
+        lastTimeSwiped = DateTime.Now;
+    }
+
+    private void OnPressed(Vector2 vector)
+    {
+        startTouchPosition = vector;
+        MouseButtonUpWaitingFlag = true;
+        MouseButtonDownWaitingFlag = false;
     }
 
     private bool DoubleTapCheck(SwipeType swipeType)

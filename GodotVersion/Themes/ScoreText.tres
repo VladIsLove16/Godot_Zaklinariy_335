@@ -3,7 +3,7 @@
 [ext_resource path="res://Fonts/Inter-VariableFont_opsz,wght.ttf" type="DynamicFontData" id=1]
 
 [resource]
-size = 512
+size = 64
 outline_color = Color( 0.141176, 1, 0, 1 )
 use_mipmaps = true
 font_data = ExtResource( 1 )
