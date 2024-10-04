@@ -66,7 +66,7 @@ public partial class GhostSpawner : Spatial
 			}
 		}
 	}
-	public void SetSpawnDelayProvider(ISpawnDelayProvider provider)
+	public void SetSpawnDelayMultiplierProvider(ISpawnDelayProvider provider)
 	{
 		spawnDelayProvider = provider;
 		SetSpawnDelayMultiplier(spawnDelayProvider.GetSpawnDelayMultiplier());

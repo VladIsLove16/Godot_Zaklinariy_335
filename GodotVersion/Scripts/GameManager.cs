@@ -7,10 +7,14 @@ namespace Zaklinariy_Godot353.Scripts
 {
 	public class GameManager : Spatial
 	{
-		Level level;
+		
+		//указывайте в 2 раза больше, чем хотите
 		const float REACTION_TIME = 0.7f;
-        const int MovingTimeInBits = 7;
-        private float MovingTime;
+		//окошко между появлением стрелок(ярким горением) и первым битом, в который можно убить
+		const float firstWindow = 0f;
+		const int TimeToKillZoneInBits = 7;//за секудну примерно 2 бита, поэтому 1 бит примерно 0,44 секунды
+
+        Level level;
         GhostSpawner GhostSpawner;
 		Character Character;
 		SwipeInput SwipeInput;
@@ -33,16 +37,16 @@ namespace Zaklinariy_Godot353.Scripts
 		{
 			level = newDifficulty;
 			ISpawnDelayProvider delayProvider = new DifficultyBasedSpawnDelayProvider(level);
-			GhostSpawner.SetSpawnDelayProvider(delayProvider);
+			GhostSpawner.SetSpawnDelayMultiplierProvider(delayProvider);
 		}
 		public void SetTimers()
 		{
-			MovingTime = MovingTimeInBits * GhostSpawner.GetTimeBetweenBits()+0.05f;
-            GhostSpawner.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(0, 0, 0));
-			GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime - REACTION_TIME / 2, 0, 0));
-			GhostKillingZone.Scale = new Vector3(REACTION_TIME / 2, 1, 1);
-			Character.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(MovingTime + Character.Scale.x / 2, 0, 0));
-		}
+            GhostKillingZone.Scale = new Vector3(REACTION_TIME / 2, 1, 1);
+            GhostKillingZone.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3((TimeToKillZoneInBits * GhostSpawner.GetTimeBetweenBits())- firstWindow + GhostKillingZone.Scale.x / 2, 0, 0));
+			GhostSpawner.GlobalTransform = new Transform(GlobalTransform.basis, new Vector3(0, 0, 0));
+			Character.GlobalTransform = GhostKillingZone.GlobalTransform;
+
+        }
 		private void Character_OnDie()
 		{
 			GhostSpawner.StopSpawning();
@@ -57,7 +61,9 @@ namespace Zaklinariy_Godot353.Scripts
 			}
 			if (ghost.CanBeKilled())
 			{
-				ghost.OnInput(swipeArgs);
+				bool result = ghost.OnInput(swipeArgs);
+				if(!result)
+					EventBus.Instance.RaiseOn_PlayerMistake();
 			}
 		}
 		public void RestartGame()

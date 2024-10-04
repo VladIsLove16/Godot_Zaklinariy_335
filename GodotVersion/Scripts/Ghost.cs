@@ -90,6 +90,7 @@ public partial class Ghost : Sprite3D
 	}
 	public bool OnInput(SwipeArgs swipeArgs)
 	{
+		Debug.Print("INPUT: " + swipeArgs.ToString());
 		if (GhostType == GhostType.Skip)
 		{
 			EventBus.Instance.RaiseOn_PlayerMistake();
@@ -97,7 +98,6 @@ public partial class Ghost : Sprite3D
 			return false;
 
 		}
-
 		if (SwipeType == SwipeType.tap)
 		{
 			if (swipeArgs.swipeType == SwipeType.tap)
@@ -105,8 +105,8 @@ public partial class Ghost : Sprite3D
 				if (swipeArgs.isDoubleTap)
 				{
 					Die();
-					return true;
 				}
+				return true;
 			}
 		}
 		else

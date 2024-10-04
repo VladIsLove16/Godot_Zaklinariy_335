@@ -90,6 +90,9 @@ tracks/1/keys = {
 
 [node name="Game" type="Spatial"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.99861, 0.171808, -4.77834 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -555.0 ]
+}
 
 [node name="EventBus" type="Node" parent="."]
 script = ExtResource( 25 )
