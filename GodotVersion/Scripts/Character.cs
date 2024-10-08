@@ -7,14 +7,26 @@ public partial class Character : Spatial
 	public int Health;
 	[Export]
 	public bool candie=false;
+	[Export]
+	private int ErrorsInARowToGetDamage;
+	private int CurrentErrorRow;
 	public override void _Ready()
 	{
 		EventBus.Instance.SubscribeOn_PlayerMistake(GetDamage);
 	}
 	public void GetDamage()
 	{
-		Health--;
-		EventBus.Instance.RaiseOnPlayerHealthChanged(Health);
+		CurrentErrorRow++;
+		if(CurrentErrorRow > ErrorsInARowToGetDamage)
+		{
+			CurrentErrorRow = 0;
+            Health--;
+            EventBus.Instance.RaiseOnPlayerHealthChanged(Health);
+        }
+		else
+		{
+			return;
+		}
 		if (Health < 0)
 			Die();
 	}

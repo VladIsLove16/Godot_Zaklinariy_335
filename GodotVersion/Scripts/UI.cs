@@ -11,6 +11,7 @@ public partial class UI : Control
 	[Export] private Label HealthText;
 	[Export] private Label DoubleTap;
 	[Export] private Label UDiedText;
+	[Export] private Label ScoreAdd;
 
 	[Export] private Sprite LeftSwipeIcon;
 	[Export] private Sprite RightSwipeIcon;
@@ -33,6 +34,7 @@ public partial class UI : Control
         HealthText = GetNode<Label>("health");
         DoubleTap = GetNode<Label>("DoubleTap");
 		UDiedText = GetNode<Label>("UDied");
+        ScoreAdd = GetNode<Label>("ScoreAdd");
 
 		GhostSpawner = GetNode<GhostSpawner>("../GhostSpawner");
 		Character = GetNode<Character>("../Character");
@@ -42,6 +44,7 @@ public partial class UI : Control
 		EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
 		EventBus.Instance.SubscribeOn_ScoreChanged(UpdateScoreText);
 		EventBus.Instance.SubscribeOnPlayerHealthChanged(PlayerHealthChanged);
+		EventBus.Instance.SubscribeOn_ScoreChangedBy(UpdateScoreAdd);
 		// Инициализация начальных значений
 		PlayerHealthChanged();
 		HideAllIcons();
@@ -51,6 +54,11 @@ public partial class UI : Control
 		GlobalScore.Text = ScoreManager.GlobalScore.ToString();
         CurrentScore.Text = ScoreManager.CurrentScore.ToString();
 	}
+	private void UpdateScoreAdd(int score)
+	{
+        ScoreAdd.Text ="+" + score.ToString();
+
+    }
 	public override void _Process(float delta)
 	{
 		ShowSwipeHelp();

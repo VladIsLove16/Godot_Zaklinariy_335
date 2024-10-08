@@ -18,6 +18,7 @@ public partial class ScoreManager : Node
 	}
 	public void AddScore(GhostType type)
 	{
+		int previousScore = CurrentScore;
         switch (type)
         {
 
@@ -39,6 +40,7 @@ public partial class ScoreManager : Node
         }
 		GD.Print("Ghost " + type.ToString() + " " + (int)type + "killed " + CurrentScore);
 		EventBus.Instance.RaiseOn_ScoreChanged(CurrentScore);
+		EventBus.Instance.RaiseOn_ScoreChangedBy(CurrentScore-previousScore);
 
 	}
 	public void Reset()

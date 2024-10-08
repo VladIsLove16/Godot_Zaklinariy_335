@@ -28,8 +28,7 @@ namespace Zaklinariy_Godot353.Scripts
 			SwipeInput.OnInput += SwipeInput_OnSwipe;
 			EventBus.Instance.SubscribeOn_Character_Died(Character_OnDie);
 			SetTimers();
-            GameSettings.ChangeLevel(level);
-			GameSettings.ChangeLevel(Level.hard);
+			GameSettings.ChangeLevel(Level.easy);
 			ChangeDifficulty(GameSettings.Level);
 		}
 		public void ChangeDifficulty(Level newDifficulty)
@@ -56,14 +55,15 @@ namespace Zaklinariy_Godot353.Scripts
 			{
 				return;
 			}
-			if (ghost.CanBeKilled())
-			{
-				bool result = ghost.OnInput(swipeArgs);
-				if(!result)
-					EventBus.Instance.RaiseOn_PlayerMistake();
-			}
-			else
-                EventBus.Instance.RaiseOn_PlayerMistake();
+			//if (ghost.CanBeKilled())
+			//{
+			//bool result = 
+			ghost.OnInput(swipeArgs);
+			//	if(!result)
+			//		EventBus.Instance.RaiseOn_PlayerMistake();
+			//}
+			//else
+   //             EventBus.Instance.RaiseOn_PlayerMistake();
         }
 		public void RestartGame()
 		{

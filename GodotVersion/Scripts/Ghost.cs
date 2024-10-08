@@ -88,36 +88,38 @@ public partial class Ghost : Sprite3D
 		GD.Print("Died " + GhostType);
 		QueueFree();
 	}
-	public bool OnInput(SwipeArgs swipeArgs)
+	public void OnInput(SwipeArgs swipeArgs)
 	{
 		Debug.Print("INPUT: " + swipeArgs.ToString());
-		if (GhostType == GhostType.Skip)
-		{
-			EventBus.Instance.RaiseOn_PlayerMistake();
-			QueueFree();
-			return false;
+        if (!CanBeKilled())
+        {
+            return;
+        }
+        if (GhostType == GhostType.Skip)
+        {
+            EventBus.Instance.RaiseOn_PlayerMistake();
+            QueueFree();
+            return;
 
-		}
-		if (SwipeType == SwipeType.tap)
+        }
+        if (IsMistake(swipeArgs.swipeType))
 		{
-			if (swipeArgs.swipeType == SwipeType.tap)
-			{
-				if (swipeArgs.isDoubleTap)
-				{
-					Die();
-				}
-				return true;
-			}
-		}
-		else
-		{
-			if (swipeArgs.swipeType == SwipeType)
-			{
-				GetDamage();
-				return true;
-			}
-		}
-		return false;
+            EventBus.Instance.RaiseOn_PlayerMistake();
+            return;
+        }
+        if (swipeArgs.isDoubleTap)
+        {
+            Die();
+			return;
+        }
+		GetDamage();
+
+	}
+	private bool IsMistake(SwipeType swipeType)
+	{
+		if(SwipeType!=swipeType)
+			return true; 
+		return false; ;
 
 	}
 }

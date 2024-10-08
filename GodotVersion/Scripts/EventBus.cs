@@ -19,6 +19,7 @@ public class EventBus : Node
 	private event Action On_PlayerMistake;
 	//очки
 	private event Action On_ScoreChanged;
+	private event Action<int> On_ScoreChangedBy;
 	//жизни
 	private event Action OnPlayerHealthChanged;
 	//остаток жизней
@@ -153,6 +154,19 @@ public class EventBus : Node
 	public void UnSubscribeOn_ScoreChanged(Action action)
 	{
 		On_ScoreChanged -= action;
+	}
+	public void RaiseOn_ScoreChangedBy(int score)
+	{
+		On_ScoreChangedBy?.Invoke(score);
+		SendMessage("score", score.ToString());
+	}
+	public void SubscribeOn_ScoreChangedBy(Action<int> action)
+	{
+		On_ScoreChangedBy += action;
+	}
+	public void UnSubscribeOn_ScoreChangedBy(Action<int> action)
+	{
+		On_ScoreChangedBy -= action;
 	}
 
 

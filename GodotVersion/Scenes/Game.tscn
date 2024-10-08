@@ -243,6 +243,15 @@ margin_bottom = 218.0
 custom_fonts/font = ExtResource( 30 )
 text = "X2"
 
+[node name="ScoreAdd" type="Label" parent="Control"]
+modulate = Color( 0.819608, 0, 0, 1 )
+margin_left = 631.0
+margin_top = 84.0
+margin_right = 914.0
+margin_bottom = 215.0
+custom_fonts/font = ExtResource( 30 )
+text = "+19"
+
 [node name="UDied" type="Label" parent="Control"]
 visible = false
 margin_left = 466.0
@@ -253,9 +262,10 @@ text = "U died
 "
 
 [node name="BackgroundElements" type="TextureRect" parent="Control"]
-margin_left = 844.0
-margin_right = 1920.0
-margin_bottom = 950.0
+margin_left = 295.0
+margin_top = 24.0
+margin_right = 1371.0
+margin_bottom = 974.0
 texture = ExtResource( 23 )
 
 [node name="WrongInput" type="TextureRect" parent="Control"]
